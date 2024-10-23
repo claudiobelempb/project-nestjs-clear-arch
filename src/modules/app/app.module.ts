@@ -1,10 +1,10 @@
-import { Module } from '@nestjs/common';
+import { Module } from '@nestjs/common'
 
-import { AppService } from './app.service';
-import { UserModule } from '../user/user.module';
-import { AppController } from './controllers/app.controller';
-import { TypeOrmModule } from '@nestjs/typeorm';
-import { MessageModule } from '../message/message.module';
+import { AppService } from './app.service'
+import { UserModule } from '../user/user.module'
+import { AppController } from './controllers/app.controller'
+import { TypeOrmModule } from '@nestjs/typeorm'
+import { MessageModule } from '../message/message.module'
 
 @Module({
   imports: [
@@ -17,9 +17,10 @@ import { MessageModule } from '../message/message.module';
       database: 'dbrecado',
       autoLoadEntities: true,
       synchronize: true,
-      migrations: []
+      migrations: [],
     }),
-    UserModule, MessageModule
+    UserModule,
+    MessageModule,
   ],
   controllers: [AppController],
   providers: [AppService],
