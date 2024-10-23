@@ -5,6 +5,7 @@ import { UserModule } from '../user/user.module'
 import { AppController } from './controllers/app.controller'
 import { TypeOrmModule } from '@nestjs/typeorm'
 import { MessageModule } from '../message/message.module'
+import { EnvConfigModule } from '@/shared/infrastructure/env-config/env-config.module'
 
 @Module({
   imports: [
@@ -21,6 +22,7 @@ import { MessageModule } from '../message/message.module'
     }),
     UserModule,
     MessageModule,
+    EnvConfigModule,
   ],
   controllers: [AppController],
   providers: [AppService],
