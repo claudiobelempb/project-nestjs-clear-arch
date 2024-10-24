@@ -12,4 +12,20 @@ export class UserEntiry {
     this.props.createdAt = this.props.createdAt ?? new Date()
     this.props.updatedAt = this.props.createdAt ?? new Date()
   }
+
+  get name() {
+    return this.props.name
+  }
+  get password() {
+    return this.props.password
+  }
+  get active() {
+    return this.props.active
+  }
+  get createdAt() {
+    return this.props.createdAt
+  }
+  get updatedAt() {
+    return this.props.updatedAt
+  }
 }
