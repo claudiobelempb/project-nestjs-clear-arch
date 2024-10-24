@@ -11,7 +11,7 @@ describe('User Entity uni teste', () => {
     expect(sut.props.name).toBe(props.name)
     expect(sut.props.email).toBe(props.email)
     expect(sut.props.password).toBe(props.password)
-    expect(sut.props.active).toBe(true)
+    expect(sut.props.active).toBeTruthy()
     expect(sut.props.createdAt).toBeInstanceOf(Date)
     expect(sut.props.updatedAt).toBe(sut.props.createdAt)
   })
@@ -38,6 +38,7 @@ describe('User Entity uni teste', () => {
     expect(sut.props.active).toBeDefined()
     expect(sut.props.active).toEqual(props.active)
     expect(typeof sut.props.active).toBe('boolean')
+    expect(sut.props.active).toBeTruthy()
   })
 
   it('Getter of createdAt field', () => {

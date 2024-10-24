@@ -1,6 +1,6 @@
 import { v4 as uuidv4 } from 'uuid'
 
-export abstract class Entity<T> {
+export abstract class AppEntity<T> {
   public readonly _id: string
   public readonly props: T
   constructor(props: T, id?: string) {
