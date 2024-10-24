@@ -7,9 +7,9 @@ export type UserPros = {
   updatedAt?: Date
 }
 export class UserEntiry {
-  constructor(private readonly props: UserPros) {
-    ;(this.props.active = this.props.active ?? true),
-      (this.props.createdAt = this.props.createdAt ?? new Date())
+  constructor(public readonly props: UserPros) {
+    this.props.active = this.props.active ?? true
+    this.props.createdAt = this.props.createdAt ?? new Date()
     this.props.updatedAt = this.props.createdAt ?? new Date()
   }
 }
