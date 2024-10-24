@@ -1,11 +1,12 @@
 import { Module } from '@nestjs/common'
 
 import { AppService } from './app.service'
-import { UserModule } from '../user/user.module'
+
 import { AppController } from './controllers/app.controller'
 import { TypeOrmModule } from '@nestjs/typeorm'
-import { MessageModule } from '../message/message.module'
 import { EnvConfigModule } from '@/shared/infrastructure/env-config/env-config.module'
+import { UserModule } from '@/modules/user/infrastructure/user.module'
+import { MessageModule } from '@/modules/message/infrastructure/message.module'
 
 @Module({
   imports: [
