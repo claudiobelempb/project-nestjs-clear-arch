@@ -1,4 +1,4 @@
-export type UserPros = {
+export type UserProps = {
   name: string
   email: string
   password: string
@@ -7,7 +7,7 @@ export type UserPros = {
   updatedAt?: Date
 }
 export class UserEntiry {
-  constructor(public readonly props: UserPros) {
+  constructor(public readonly props: UserProps) {
     this.props.active = this.props.active ?? true
     this.props.createdAt = this.props.createdAt ?? new Date()
     this.props.updatedAt = this.props.createdAt ?? new Date()
