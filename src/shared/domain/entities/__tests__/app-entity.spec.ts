@@ -2,7 +2,6 @@ import {
   UserEntiry,
   UserProps,
 } from '@/modules/user/domain/entities/user.entity'
-import { UserDataBuilder } from '@/modules/user/domain/testing/helper/user-data-builder'
 import { validate as uuidValidate } from 'uuid'
 import { AppEntity } from '../app-entity'
 

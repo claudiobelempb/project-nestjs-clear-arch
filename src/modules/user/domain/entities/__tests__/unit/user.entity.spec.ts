@@ -8,7 +8,8 @@ describe('User Entity uni teste', () => {
     sut = new UserEntiry(props)
   })
   it('Constructor method', () => {
-    expect(sut.props.name).toBe(props.name)
+    expect(sut.props.firstName).toBe(props.firstName)
+    expect(sut.props.lastName).toBe(props.lastName)
     expect(sut.props.email).toBe(props.email)
     expect(sut.props.password).toBe(props.password)
     expect(sut.props.active).toBeTruthy()
@@ -16,10 +17,16 @@ describe('User Entity uni teste', () => {
     expect(sut.props.updatedAt).toBe(sut.props.createdAt)
   })
 
-  it('Getter of name field', () => {
-    expect(sut.props.name).toBeDefined()
-    expect(sut.props.name).toEqual(props.name)
-    expect(typeof sut.props.name).toBe('string')
+  it('Getter of name firstName', () => {
+    expect(sut.props.firstName).toBeDefined()
+    expect(sut.props.firstName).toEqual(props.firstName)
+    expect(typeof sut.props.firstName).toBe('string')
+  })
+
+  it('Getter of name lastName', () => {
+    expect(sut.props.lastName).toBeDefined()
+    expect(sut.props.lastName).toEqual(props.lastName)
+    expect(typeof sut.props.lastName).toBe('string')
   })
 
   it('Getter of email field', () => {

@@ -2,7 +2,8 @@ import { faker } from '@faker-js/faker/.'
 import { UserProps } from '../../entities/user.entity'
 
 type UserDataBuilderProps = {
-  name?: string
+  firstName?: string
+  lastName?: string
   email?: string
   password?: string
   active?: boolean
@@ -12,7 +13,8 @@ type UserDataBuilderProps = {
 
 export function UserDataBuilder(props: UserDataBuilderProps): UserProps {
   return {
-    name: props.name ?? faker.person.firstName(),
+    firstName: props.firstName ?? faker.person.firstName(),
+    lastName: props.lastName ?? faker.person.lastName(),
     email: props.email ?? faker.internet.email(),
     password: props.password ?? faker.internet.password(),
     active: props.active ?? true,
