@@ -17,15 +17,27 @@ describe('User Entity uni teste', () => {
     expect(sut.props.updatedAt).toBe(sut.props.createdAt)
   })
 
-  it('Getter of name firstName', () => {
+  it('Getter of firstName field', () => {
     expect(sut.props.firstName).toBeDefined()
     expect(sut.props.firstName).toEqual(props.firstName)
     expect(typeof sut.props.firstName).toBe('string')
   })
 
-  it('Getter of name lastName', () => {
+  it('Setter of firstName field', () => {
+    sut['firstName'] = 'other firstName'
+    expect(sut.props.firstName).toEqual('other firstName')
+    expect(typeof sut.props.firstName).toBe('string')
+  })
+
+  it('Getter of lastName field', () => {
     expect(sut.props.lastName).toBeDefined()
     expect(sut.props.lastName).toEqual(props.lastName)
+    expect(typeof sut.props.lastName).toBe('string')
+  })
+
+  it('Setter of lastName field', () => {
+    sut['lastName'] = 'other lastName'
+    expect(sut.props.lastName).toEqual('other lastName')
     expect(typeof sut.props.lastName).toBe('string')
   })
 
@@ -38,6 +50,12 @@ describe('User Entity uni teste', () => {
   it('Getter of password field', () => {
     expect(sut.props.password).toBeDefined()
     expect(sut.props.password).toEqual(props.password)
+    expect(typeof sut.props.password).toBe('string')
+  })
+
+  it('Setter of password field', () => {
+    sut['password'] = 'other password'
+    expect(sut.props.password).toEqual('other password')
     expect(typeof sut.props.password).toBe('string')
   })
 
@@ -56,5 +74,23 @@ describe('User Entity uni teste', () => {
   it('Getter of updatedAt field', () => {
     expect(sut.props.updatedAt).toBeDefined()
     expect(sut.props.updatedAt).toBeInstanceOf(Date)
+  })
+
+  it('Should update a user', () => {
+    sut.update({
+      firstName: 'other firstName',
+      lastName: 'other lastName',
+    })
+    expect(sut.props.firstName).toEqual('other firstName')
+    expect(sut.props.lastName).toEqual('other lastName')
+  })
+  it('Should updatePassword a user', () => {
+    sut.updatePassword('other updatePassword')
+    expect(sut.props.password).toEqual('other updatePassword')
+  })
+
+  it('Should updateActive a user', () => {
+    sut.updateActive(false)
+    expect(sut.props.active).toEqual(false)
   })
 })

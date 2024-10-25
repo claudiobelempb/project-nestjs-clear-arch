@@ -25,7 +25,7 @@ export class UserEntiry extends AppEntity<UserProps> {
     this.props.updatedAt = this.props.createdAt ?? new Date()
   }
 
-  update(value: UserUpdateProps): void {
+  update(value: UserUpdateProps) {
     this.props.firstName = value.firstName
     this.props.lastName = value.lastName
   }
