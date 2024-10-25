@@ -5,5 +5,5 @@ export type FieldErrors = {
 export interface ValidatorFieldsInterface<T> {
   errors: FieldErrors
   validatedData: T
-  validate(data: unknown): boolean
+  validate(data: null): boolean
 }

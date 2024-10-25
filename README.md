@@ -7,5 +7,5 @@ npm i @types/uuid -D
 ```
 ### Validations
 ```
-npm i nest class-validetion
+npm i class-validator
 ```
