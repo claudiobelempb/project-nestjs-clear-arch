@@ -10,7 +10,7 @@ export abstract class ClassValidatorFields<T>
   errors: FieldErrors = null
   validatedData: T = null
 
-  validate(data: null): boolean {
+  validate(data: any): boolean {
     const errors = validateSync(data)
     if (errors.length) {
       this.errors = {}
