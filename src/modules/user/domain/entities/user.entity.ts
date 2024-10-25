@@ -1,4 +1,5 @@
 import { AppEntity } from '@/shared/domain/entities/app-entity'
+import { UserValidatorFactory } from '../validators/user-validator'
 
 export type UserProps = {
   firstName: string
@@ -19,6 +20,7 @@ export class UserEntiry extends AppEntity<UserProps> {
     public readonly props: UserProps,
     id?: string,
   ) {
+    UserEntiry.validate(props)
     super(props, id)
     this.props.active = this.props.active ?? true
     this.props.createdAt = this.props.createdAt ?? new Date()
@@ -26,15 +28,28 @@ export class UserEntiry extends AppEntity<UserProps> {
   }
 
   update(value: UserUpdateProps) {
+    UserEntiry.validate({
+      ...this.props,
+      firstName: value.firstName,
+      lastName: value.lastName,
+    })
     this.props.firstName = value.firstName
     this.props.lastName = value.lastName
   }
 
   updatePassword(value: string) {
+    UserEntiry.validate({
+      ...this.props,
+      password: value,
+    })
     this.props.password = value
   }
 
   updateActive(value: boolean) {
+    UserEntiry.validate({
+      ...this.props,
+      active: value,
+    })
     this.props.active = value
   }
 
@@ -76,5 +91,10 @@ export class UserEntiry extends AppEntity<UserProps> {
 
   get updatedAt() {
     return this.props.updatedAt
+  }
+
+  private static validate(props: UserProps) {
+    const validator = UserValidatorFactory.create()
+    validator.validate(props)
   }
 }
