@@ -4,8 +4,8 @@ import { AppService } from './app.service'
 
 import { AppController } from './controllers/app.controller'
 import { TypeOrmModule } from '@nestjs/typeorm'
-import { EnvConfigModule } from '@/shared/infrastructure/env-config/env-config.module'
-import { UserModule } from '@/modules/user/infrastructure/user.module'
+import { EnvConfigModule } from '@/shared/infra/env-config/env-config.module'
+import { UserModule } from '@/modules/user/infra/user.module'
 import { MessageModule } from '@/modules/message/infrastructure/message.module'
 
 @Module({
