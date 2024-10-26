@@ -1,9 +1,11 @@
+import { UserProps } from '../../../entities/user.entity'
 import { UserDataBuilder } from '../../../testing/helper/user-data-builder'
 import { UserRoles } from '../../user-roles'
 import { UserValidator } from '../../user-validator'
 import { UserValidatorFactory } from '../../user-validator-factory'
 
 let sut: UserValidator
+let props: UserProps
 describe('UserValidator unit tests', () => {
   beforeEach(() => {
     sut = UserValidatorFactory.create()
@@ -175,6 +177,47 @@ describe('UserValidator unit tests', () => {
       expect(isValid).toBeFalsy()
       expect(sut.errors['password']).toStrictEqual([
         'password must be shorter than or equal to 100 characters',
+      ])
+    })
+  })
+
+  describe('Active field', () => {
+    it('Invalidation cases for active field', () => {
+      let isValid = sut.validate({ ...props, active: 52 as any })
+      console.log(isValid)
+      expect(isValid).toBeFalsy()
+      expect(isValid === null || typeof isValid === 'boolean').toBeTruthy()
+    })
+  })
+
+  describe('CreatedAt field', () => {
+    it('Invalidation cases for createdAt field', () => {
+      let isValid = sut.validate({ ...props, createdAt: 2 as any })
+      expect(isValid).toBeFalsy()
+      expect(sut.errors['createdAt']).toStrictEqual([
+        'createdAt must be a Date instance',
+      ])
+
+      isValid = sut.validate({ ...props, createdAt: '' as any })
+      expect(isValid).toBeFalsy()
+      expect(sut.errors['createdAt']).toStrictEqual([
+        'createdAt must be a Date instance',
+      ])
+    })
+  })
+
+  describe('UpdatedAt field', () => {
+    it('Invalidation cases for updatedAt field', () => {
+      let isValid = sut.validate({ ...props, updatedAt: 2 as any })
+      expect(isValid).toBeFalsy()
+      expect(sut.errors['updatedAt']).toStrictEqual([
+        'updatedAt must be a Date instance',
+      ])
+
+      isValid = sut.validate({ ...props, updatedAt: '' as any })
+      expect(isValid).toBeFalsy()
+      expect(sut.errors['updatedAt']).toStrictEqual([
+        'updatedAt must be a Date instance',
       ])
     })
   })
