@@ -4,10 +4,12 @@ describe('User Entity uni teste', () => {
   let props: UserProps
   let sut: UserEntiry
   beforeEach(() => {
+    UserEntiry.validate = jest.fn()
     props = UserDataBuilder({})
     sut = new UserEntiry(props)
   })
   it('Constructor method', () => {
+    expect(UserEntiry.validate).toHaveBeenCalled()
     expect(sut.props.firstName).toBe(props.firstName)
     expect(sut.props.lastName).toBe(props.lastName)
     expect(sut.props.email).toBe(props.email)
@@ -81,16 +83,19 @@ describe('User Entity uni teste', () => {
       firstName: 'other firstName',
       lastName: 'other lastName',
     })
+    expect(UserEntiry.validate).toHaveBeenCalled()
     expect(sut.props.firstName).toEqual('other firstName')
     expect(sut.props.lastName).toEqual('other lastName')
   })
   it('Should updatePassword a user', () => {
     sut.updatePassword('other updatePassword')
+    expect(UserEntiry.validate).toHaveBeenCalled()
     expect(sut.props.password).toEqual('other updatePassword')
   })
 
   it('Should updateActive a user', () => {
     sut.updateActive(false)
+    expect(UserEntiry.validate).toHaveBeenCalled()
     expect(sut.props.active).toEqual(false)
   })
 })

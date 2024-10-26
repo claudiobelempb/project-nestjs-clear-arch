@@ -93,7 +93,7 @@ export class UserEntiry extends AppEntity<UserProps> {
     return this.props.updatedAt
   }
 
-  private static validate(props: UserProps) {
+  static validate(props: UserProps) {
     const validator = UserValidatorFactory.create()
     validator.validate(props)
   }
