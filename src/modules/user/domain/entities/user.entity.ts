@@ -1,5 +1,5 @@
 import { AppEntity } from '@/shared/domain/entities/app-entity'
-import { UserValidatorFactory } from '../validators/user-validator'
+import { UserValidatorFactory } from '../validators/user-validator-factory'
 
 export type UserProps = {
   firstName: string
