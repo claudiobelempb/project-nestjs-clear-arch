@@ -21,7 +21,7 @@ export class UserRoles {
   @IsNotEmpty()
   lastName: string
 
-  @MaxLength(32)
+  @MaxLength(100)
   @IsString()
   @IsNotEmpty()
   @IsEmail()
