@@ -70,6 +70,14 @@ export class UserEntiry extends AppEntity<UserProps> {
     this.props.lastName = value
   }
 
+  get email() {
+    return this.props.email
+  }
+
+  private set email(value: string) {
+    this.props.email = value
+  }
+
   get password() {
     return this.props.password
   }
