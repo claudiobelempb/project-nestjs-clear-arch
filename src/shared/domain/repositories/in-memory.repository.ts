@@ -2,7 +2,7 @@ import { AppEntity } from '../entities/app-entity'
 import { EntityNotFoundError } from '../errors/entity-not-found.error'
 import { RepositoryInteface } from './repository-contracts'
 
-export abstract class InMemoryRepository<E extends AppEntity<E>>
+export abstract class InMemoryRepository<E extends AppEntity>
   implements RepositoryInteface<E>
 {
   itens: E[] = []
