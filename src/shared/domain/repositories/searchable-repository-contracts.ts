@@ -1,10 +1,12 @@
 import { AppEntity } from '../entities/app-entity'
 import { RepositoryInteface } from './repository-contracts'
 import { SearchParams } from './utils/search-params'
+import { SearchResult } from './utils/search-result'
 export interface SeachacleRepositoryInteface<
   E extends AppEntity,
-  SearchInput,
-  SearchOutput,
+  Filter = string,
+  SearchInput = SearchParams,
+  SearchOutput = SearchResult<E, Filter>,
 > extends RepositoryInteface<E> {
-  search(props: SearchParams): Promise<SearchOutput>
+  search(props: SearchInput): Promise<SearchOutput>
 }
