@@ -8,5 +8,7 @@ export interface SeachacleRepositoryInteface<
   SearchInput = SearchParams,
   SearchOutput = SearchResult<E, Filter>,
 > extends RepositoryInteface<E> {
+  sortableFields: string[]
+
   search(props: SearchInput): Promise<SearchOutput>
 }
