@@ -61,7 +61,27 @@ describe('StubInMemorySearchableRepository unit tests', () => {
   })
 
   describe('applySort method', () => {
-    it('', () => {})
+    it('shoul no sort items', async () => {
+      const items = [
+        new StubEntity({ name: 'b', price: 50 }),
+        new StubEntity({ name: 'a', price: 50 }),
+      ]
+      let itemsSorted = await sut['applySort'](items, null, null)
+      expect(itemsSorted).toStrictEqual(items)
+
+      itemsSorted = await sut['applySort'](items, 'price', 'asc')
+      expect(itemsSorted).toStrictEqual(items)
+    })
+
+    it('shoul sort items', async () => {
+      const items = [
+        new StubEntity({ name: 'b', price: 50 }),
+        new StubEntity({ name: 'a', price: 50 }),
+        new StubEntity({ name: 'c', price: 50 }),
+      ]
+      const itemsSorted = await sut['applySort'](items, 'name', 'asc')
+      expect(itemsSorted).toStrictEqual([items[1], items[0], items[2]])
+    })
   })
 
   describe('applyPagnate method', () => {
