@@ -5,7 +5,7 @@ import { SearchResult } from './utils/search-result'
 export interface SeachacleRepositoryInteface<
   E extends AppEntity,
   Filter = string,
-  SearchInput = SearchParams,
+  SearchInput = SearchParams<Filter>,
   SearchOutput = SearchResult<E, Filter>,
 > extends RepositoryInteface<E> {
   sortableFields: string[]
