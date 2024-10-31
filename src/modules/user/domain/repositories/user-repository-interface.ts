@@ -4,7 +4,7 @@ import { SeachacleRepositoryInteface } from '@/shared/domain/repositories/search
 import { SearchParams as DefaultSearchParams } from '@/shared/domain/repositories/utils/search-params'
 import { SearchResult as DefaultSearchResult } from '@/shared/domain/repositories/utils/search-result'
 
-export namespace UserRepositoryInterface {
+export namespace UserRepository {
   export type Filter = string
 
   export class SearchParams extends DefaultSearchParams<Filter> {}
