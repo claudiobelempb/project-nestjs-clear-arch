@@ -85,7 +85,10 @@ describe('UserInMemoryRepository unit tests', () => {
       new UserEntiry(UserDataBuilder({ firstName: 'd' })),
       new UserEntiry(UserDataBuilder({ firstName: 'a' })),
     ]
-    const itemsSorted = await sut['applySort'](items, 'firstName', 'asc')
+    let itemsSorted = await sut['applySort'](items, 'firstName', 'asc')
     expect(itemsSorted).toStrictEqual([items[2], items[0], items[1]])
+
+    itemsSorted = await sut['applySort'](items, 'firstName', null)
+    expect(itemsSorted).toStrictEqual([items[1], items[0], items[2]])
   })
 })
