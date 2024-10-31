@@ -1,5 +1,5 @@
 import { UserEntiry } from '@/modules/user/domain/entities/user.entity'
-import { UserRepositoryInterface } from '@/modules/user/domain/repositories/user-repository-interface'
+import { UserRepository } from '@/modules/user/domain/repositories/user-repository'
 import { ConfictError } from '@/shared/domain/errors/conflict-error'
 import { EntityNotFoundError } from '@/shared/domain/errors/entity-not-found.error'
 import { InMemorySearchableRepository } from '@/shared/domain/repositories/in-memory-searchable.repository'
@@ -7,7 +7,7 @@ import { SorDirection } from '@/shared/domain/repositories/utils/search-params'
 
 export class UserInMemoryRepository
   extends InMemorySearchableRepository<UserEntiry>
-  implements UserRepositoryInterface.Repository
+  implements UserRepository.Repository
 {
   sortableFields: string[] = ['firstName', 'createdAt']
   async findByEmail(email: string): Promise<UserEntiry> {
@@ -26,7 +26,7 @@ export class UserInMemoryRepository
 
   protected async applyFilter(
     items: UserEntiry[],
-    filter: UserRepositoryInterface.Filter,
+    filter: UserRepository.Filter,
   ): Promise<UserEntiry[]> {
     if (!filter) {
       return items

@@ -1,5 +1,5 @@
 import { UserEntiry } from '../../domain/entities/user.entity'
-import { UserRepository } from '../../domain/repositories/user-repository-interface'
+import { UserRepository } from '../../domain/repositories/user-repository'
 import { BadRequestError } from '../errors/bad-request.error'
 
 export namespace SignupUseCase {
