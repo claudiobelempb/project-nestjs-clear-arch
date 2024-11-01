@@ -3,6 +3,7 @@ import { UserEntiry } from '../../domain/entities/user.entity'
 import { UserRepository } from '../../domain/repositories/user-repository'
 import { BadRequestError } from '../errors/bad-request.error'
 import { UserResponse } from '../response/user-response'
+import { DefaultUseCase } from '@/shared/application/usecases/use-case'
 
 export namespace SignupUseCase {
   export type Request = {
@@ -13,7 +14,7 @@ export namespace SignupUseCase {
   }
 
   export type Response = UserResponse
-  export class UseCase {
+  export class UseCase implements DefaultUseCase<Request, Response> {
     constructor(
       private readonly userRepository: UserRepository.Repository,
       private readonly hashProvider: HashProvider,

@@ -1,3 +1,4 @@
+import { DefaultUseCase } from '@/shared/application/usecases/use-case'
 import { UserRepository } from '../../domain/repositories/user-repository'
 import { UserResponse } from '../response/user-response'
 export namespace FindByIdUseCase {
@@ -6,7 +7,7 @@ export namespace FindByIdUseCase {
   }
 
   export type Response = UserResponse
-  export class UseCase {
+  export class UseCase implements DefaultUseCase<Request, Response> {
     constructor(private readonly userRepository: UserRepository.Repository) {}
     async execute(request: Request): Promise<Response> {
       const entity = await this.userRepository.findById(request.id)
