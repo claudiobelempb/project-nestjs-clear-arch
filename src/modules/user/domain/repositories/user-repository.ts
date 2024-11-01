@@ -1,4 +1,3 @@
-import { RepositoryInteface } from '@/shared/domain/repositories/repository-contracts'
 import { UserEntiry } from '../entities/user.entity'
 import { SeachacleRepositoryInteface } from '@/shared/domain/repositories/searchable-repository-contracts'
 import { SearchParams as DefaultSearchParams } from '@/shared/domain/repositories/utils/search-params'

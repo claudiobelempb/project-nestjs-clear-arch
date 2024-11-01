@@ -1,5 +1,5 @@
 import { AppEntity } from '../entities/app-entity'
-import { EntityNotFoundError } from '../errors/entity-not-found.error'
+import { NotFoundError } from '../errors/entity-not-found.error'
 import { RepositoryInteface } from './repository-contracts'
 
 export abstract class InMemoryRepository<E extends AppEntity>
@@ -35,7 +35,7 @@ export abstract class InMemoryRepository<E extends AppEntity>
     const _id = `${id}`
     const entity = this.items.find(item => item.id === _id)
     if (!entity) {
-      throw new EntityNotFoundError('Entity not found')
+      throw new NotFoundError('Entity not found')
     }
     return entity
   }
