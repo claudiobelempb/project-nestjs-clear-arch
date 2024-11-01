@@ -1,6 +1,6 @@
-import { AppEntity } from '../entities/app-entity'
+import { DefaultEntity } from '../entities/default-entity'
 
-export interface RepositoryInteface<E extends AppEntity> {
+export interface RepositoryInteface<E extends DefaultEntity> {
   insert(entity: E): Promise<void>
   findById(id: string): Promise<E>
   findAll(): Promise<E[]>

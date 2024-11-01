@@ -1,4 +1,4 @@
-import { AppEntity } from '../../entities/app-entity'
+import { AppEntity } from '../../entities/default-entity'
 
 export type SorDirection = 'asc' | 'desc'
 export type SearchResultProps<E extends AppEntity, Filter> = {

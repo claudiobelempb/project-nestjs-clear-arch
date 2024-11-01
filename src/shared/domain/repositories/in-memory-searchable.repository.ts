@@ -1,10 +1,10 @@
-import { AppEntity } from '../entities/app-entity'
+import { DefaultEntity } from '../entities/default-entity'
 import { InMemoryRepository } from './in-memory.repository'
 import { SeachacleRepositoryInteface } from './searchable-repository-contracts'
 import { SearchParams } from './utils/search-params'
 import { SearchResult } from './utils/search-result'
 
-export abstract class InMemorySearchableRepository<E extends AppEntity>
+export abstract class InMemorySearchableRepository<E extends DefaultEntity>
   extends InMemoryRepository<E>
   implements SeachacleRepositoryInteface<E, any, any>
 {

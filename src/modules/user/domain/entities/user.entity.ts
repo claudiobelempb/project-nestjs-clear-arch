@@ -1,4 +1,4 @@
-import { AppEntity } from '@/shared/domain/entities/app-entity'
+import { AppEntity } from '@/shared/domain/entities/default-entity'
 import { UserValidatorFactory } from '../validators/user-validator-factory'
 import { EntityValidationError } from '@/shared/domain/errors/validation-error'
 

@@ -1,8 +1,8 @@
 import { SearchResult } from '@/shared/domain/repositories/utils/search-result'
 import { DefaultResponse } from '../response/default-response'
-import { AppEntity } from '@/shared/domain/entities/app-entity'
+import { AppEntity } from '@/shared/domain/entities/default-entity'
 import { UserEntiry } from '@/modules/user/domain/entities/user.entity'
-import { UserResponse } from '@/modules/user/application/response/user-response'
+import { UserType } from '@/modules/user/application/response/user-response'
 
 export namespace DefaultMapper {
   export class PaginationResponseMapper {
@@ -21,7 +21,7 @@ export namespace DefaultMapper {
   }
 
   export class UserResponseMapper {
-    static toResponse(enity: UserEntiry): UserResponse.User {
+    static toResponse(enity: UserEntiry): UserType.UserResponse {
       return enity.toJSON()
     }
   }

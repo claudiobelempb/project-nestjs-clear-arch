@@ -1,4 +1,4 @@
-import { AppEntity } from '@/shared/domain/entities/app-entity'
+import { AppEntity } from '@/shared/domain/entities/default-entity'
 import { InMemorySearchableRepository } from '../../in-memory-searchable.repository'
 import { filter } from 'rxjs'
 import { SearchParams } from '../../utils/search-params'

@@ -1,8 +1,8 @@
-import { AppEntity } from '../entities/app-entity'
+import { DefaultEntity } from '../entities/default-entity'
 import { NotFoundError } from '../errors/entity-not-found.error'
 import { RepositoryInteface } from './repository-contracts'
 
-export abstract class InMemoryRepository<E extends AppEntity>
+export abstract class InMemoryRepository<E extends DefaultEntity>
   implements RepositoryInteface<E>
 {
   items: E[] = []

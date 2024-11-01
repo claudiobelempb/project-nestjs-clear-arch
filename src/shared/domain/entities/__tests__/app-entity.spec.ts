@@ -3,7 +3,7 @@ import {
   UserProps,
 } from '@/modules/user/domain/entities/user.entity'
 import { validate as uuidValidate } from 'uuid'
-import { AppEntity } from '../app-entity'
+import { AppEntity } from '../default-entity'
 
 type StubEntityProps = {
   props1: string

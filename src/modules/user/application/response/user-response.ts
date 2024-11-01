@@ -1,5 +1,5 @@
-export namespace UserResponse {
-  export type User = {
+export namespace UserType {
+  export type UserResponse = {
     id: string
     firstName: string
     lastName: string

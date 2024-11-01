@@ -1,4 +1,4 @@
-import { AppEntity } from '../entities/app-entity'
+import { AppEntity } from '../entities/default-entity'
 import { RepositoryInteface } from './repository-contracts'
 import { SearchParams } from './utils/search-params'
 import { SearchResult } from './utils/search-result'
