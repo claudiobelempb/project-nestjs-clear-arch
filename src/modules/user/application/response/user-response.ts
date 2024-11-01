@@ -1,10 +1,12 @@
-export type UserResponse = {
-  id: string
-  firstName: string
-  lastName: string
-  email: string
-  password: string
-  active: boolean
-  createdAt: Date
-  updatedAt: Date
+export namespace UserResponse {
+  export type User = {
+    id: string
+    firstName: string
+    lastName: string
+    email: string
+    password: string
+    active: boolean
+    createdAt: Date
+    updatedAt: Date
+  }
 }
