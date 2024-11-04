@@ -2,7 +2,6 @@ import { DefaultUseCase } from '@/shared/application/usecases/use-case'
 import { UserType } from '../response/user-response'
 import { UserRepository } from '../../domain/repositories/user-repository'
 import { BadRequestError } from '@/shared/application/errors/bad-request.error'
-import { NotFoundError } from '@/shared/domain/errors/entity-not-found.error'
 import { UserMapper } from '../mapper/user-response.mapper'
 
 export namespace UserUpdateUseCase {
