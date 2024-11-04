@@ -79,7 +79,7 @@ describe('UserFindAllUseCase unit tests', () => {
       new UserEntiry(UserDataBuilder({ firstName: 'c' })),
     ]
     repository.items = items
-    const response = await sut.execute({
+    let response = await sut.execute({
       page: 1,
       perPage: 2,
       sort: 'firstName',
@@ -92,6 +92,36 @@ describe('UserFindAllUseCase unit tests', () => {
       currentPage: 1,
       lastPage: 2,
       perPage: 2,
+    })
+
+    response = await sut.execute({
+      page: 2,
+      perPage: 2,
+      sort: 'firstName',
+      sortDir: 'asc',
+      filter: 'a',
+    })
+    expect(response).toStrictEqual({
+      items: [items[0].toJSON()],
+      total: 3,
+      currentPage: 2,
+      lastPage: 2,
+      perPage: 2,
+    })
+
+    response = await sut.execute({
+      page: 1,
+      perPage: 3,
+      sort: 'firstName',
+      sortDir: 'desc',
+      filter: 'a',
+    })
+    expect(response).toStrictEqual({
+      items: [items[0].toJSON(), items[2].toJSON(), items[1].toJSON()],
+      total: 3,
+      currentPage: 1,
+      lastPage: 1,
+      perPage: 3,
     })
   })
 })
