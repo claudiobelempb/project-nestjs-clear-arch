@@ -5,7 +5,7 @@ import { UserMapper } from '../mapper/user-response.mapper'
 import { InvalidPasswordError } from '@/shared/application/errors/invalid-password.error'
 import { HashProvider } from '@/shared/application/providers/hash-provider'
 
-export namespace UserUpdatePassowrdUseCase {
+export namespace UserUpdatePasswordUseCase {
   export type Request = {
     id: string
     password: string
