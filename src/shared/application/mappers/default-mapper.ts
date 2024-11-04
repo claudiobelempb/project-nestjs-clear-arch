@@ -1,14 +1,14 @@
 import { SearchResult } from '@/shared/domain/repositories/utils/search-result'
 import { DefaultResponse } from '../response/default-response'
-import { AppEntity } from '@/shared/domain/entities/default-entity'
+import { DefaultEntity } from '@/shared/domain/entities/default-entity'
 import { UserEntiry } from '@/modules/user/domain/entities/user.entity'
 import { UserType } from '@/modules/user/application/response/user-response'
 
 export namespace DefaultMapper {
-  export class PaginationResponseMapper {
+  export class PaginationMapper {
     static toResponse<Item = any>(
       items: Item[],
-      result: SearchResult<AppEntity>,
+      result: SearchResult<DefaultEntity>,
     ): DefaultResponse.PaginationResponse<Item> {
       return {
         items,
@@ -17,12 +17,6 @@ export namespace DefaultMapper {
         lastPage: result.lastPage,
         perPage: result.perPage,
       }
-    }
-  }
-
-  export class UserResponseMapper {
-    static toResponse(enity: UserEntiry): UserType.UserResponse {
-      return enity.toJSON()
     }
   }
 }

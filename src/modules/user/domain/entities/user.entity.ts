@@ -1,4 +1,4 @@
-import { AppEntity } from '@/shared/domain/entities/default-entity'
+import { DefaultEntity } from '@/shared/domain/entities/default-entity'
 import { UserValidatorFactory } from '../validators/user-validator-factory'
 import { EntityValidationError } from '@/shared/domain/errors/validation-error'
 
@@ -16,7 +16,7 @@ export type UserUpdateProps = Omit<
   UserProps,
   'email' | 'password' | 'createdAt' | 'updatedAt' | 'active'
 >
-export class UserEntiry extends AppEntity<UserProps> {
+export class UserEntiry extends DefaultEntity<UserProps> {
   constructor(
     public readonly props: UserProps,
     id?: string,

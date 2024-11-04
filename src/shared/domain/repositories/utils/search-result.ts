@@ -1,7 +1,7 @@
-import { AppEntity } from '../../entities/default-entity'
+import { DefaultEntity } from '../../entities/default-entity'
 
 export type SorDirection = 'asc' | 'desc'
-export type SearchResultProps<E extends AppEntity, Filter> = {
+export type SearchResultProps<E extends DefaultEntity, Filter> = {
   items: E[]
   total: number
   currentPage: number
@@ -11,7 +11,7 @@ export type SearchResultProps<E extends AppEntity, Filter> = {
   filter: Filter | null
 }
 
-export class SearchResult<E extends AppEntity, Filter = string> {
+export class SearchResult<E extends DefaultEntity, Filter = string> {
   readonly items: E[]
   readonly total: number
   readonly currentPage: number

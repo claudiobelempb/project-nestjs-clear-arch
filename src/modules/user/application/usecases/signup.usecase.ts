@@ -2,7 +2,7 @@ import { HashProvider } from '@/shared/application/providers/hash-provider'
 import { UserEntiry } from '../../domain/entities/user.entity'
 import { UserRepository } from '../../domain/repositories/user-repository'
 import { BadRequestError } from '../../../../shared/application/errors/bad-request.error'
-import { UserResponse } from '../response/user-response'
+import { UserType } from '../response/user-response'
 import { DefaultUseCase } from '@/shared/application/usecases/use-case'
 
 export namespace SignupUseCase {
@@ -13,7 +13,7 @@ export namespace SignupUseCase {
     password: string
   }
 
-  export type Response = UserResponse
+  export type Response = UserType.UserResponse
   export class UseCase implements DefaultUseCase<Request, Response> {
     constructor(
       private readonly userRepository: UserRepository.Repository,
