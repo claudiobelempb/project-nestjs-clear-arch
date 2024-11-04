@@ -4,8 +4,9 @@ import { SearchResponse } from '@/shared/application/response/search-reponse'
 import { DefaultResponse } from '@/shared/application/response/default-response'
 import { UserType } from '../response/user-response'
 import { DefaultMapper } from '@/shared/application/mappers/default-mapper'
+import { UserMapper } from '../mapper/user-response.mapper'
 
-export namespace FindAllUseCase {
+export namespace UserFindAllUseCase {
   export type Request = SearchResponse
 
   export type Response =
@@ -21,9 +22,9 @@ export namespace FindAllUseCase {
 
     private toResponse(result: UserRepository.SearchResult): Response {
       const items = result.items.map(item => {
-        return DefaultMapper.UserResponseMapper.toResponse(item)
+        return UserMapper.Response.toResponse(item)
       })
-      return DefaultMapper.PaginationResponseMapper.toResponse(items, result)
+      return DefaultMapper.PaginationMapper.toResponse(items, result)
     }
   }
 }

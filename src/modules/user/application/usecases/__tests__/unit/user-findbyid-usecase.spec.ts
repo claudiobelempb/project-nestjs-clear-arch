@@ -1,16 +1,16 @@
 import { UserInMemoryRepository } from '@/modules/user/infra/database/in-memory/repositories/user-in-memory.repository'
-import { FindByIdUseCase } from '../../findbyid.usecase'
+import { UserFindByIdUseCase } from '../../user-findbyid.usecase'
 import { NotFoundError } from '@/shared/domain/errors/entity-not-found.error'
 import { UserEntiry } from '@/modules/user/domain/entities/user.entity'
 import { UserDataBuilder } from '@/modules/user/domain/testing/helper/user-data-builder'
 
 describe('FindByIdUseCase unit tests', () => {
-  let sut: FindByIdUseCase.UseCase
+  let sut: UserFindByIdUseCase.UseCase
   let repository: UserInMemoryRepository
 
   beforeEach(() => {
     repository = new UserInMemoryRepository()
-    sut = new FindByIdUseCase.UseCase(repository)
+    sut = new UserFindByIdUseCase.UseCase(repository)
   })
   it('Should throws error when entity not found', async () => {
     await expect(() => sut.execute({ id: 'fakeId' })).rejects.toThrow(

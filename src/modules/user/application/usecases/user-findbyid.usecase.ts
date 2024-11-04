@@ -1,7 +1,7 @@
 import { DefaultUseCase } from '@/shared/application/usecases/use-case'
 import { UserRepository } from '../../domain/repositories/user-repository'
 import { UserType } from '../response/user-response'
-export namespace FindByIdUseCase {
+export namespace UserFindByIdUseCase {
   export type Request = {
     id: string
   }

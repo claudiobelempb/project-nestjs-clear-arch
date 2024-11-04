@@ -5,7 +5,7 @@ import { BadRequestError } from '../../../../shared/application/errors/bad-reque
 import { UserType } from '../response/user-response'
 import { DefaultUseCase } from '@/shared/application/usecases/use-case'
 
-export namespace SignupUseCase {
+export namespace UserSignupUseCase {
   export type Request = {
     firstName: string
     lastName: string
