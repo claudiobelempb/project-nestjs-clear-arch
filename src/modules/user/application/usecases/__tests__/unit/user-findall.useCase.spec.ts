@@ -1,5 +1,3 @@
-import { DefaultMapper } from '@/shared/application/mappers/default-mapper'
-import { SearchResult } from '@/shared/domain/repositories/utils/search-result'
 import { UserFindAllUseCase } from '../../user-findall.usecase'
 import { UserInMemoryRepository } from '@/modules/user/infra/database/in-memory/repositories/user-in-memory.repository'
 import { UserRepository } from '@/modules/user/domain/repositories/user-repository'
@@ -49,6 +47,50 @@ describe('UserFindAllUseCase unit tests', () => {
       total: 1,
       currentPage: 1,
       lastPage: 1,
+      perPage: 2,
+    })
+  })
+
+  it('should return the users ordered by createdAt', async () => {
+    const createdAt = new Date()
+    const items = [
+      new UserEntiry(UserDataBuilder({ createdAt })),
+      new UserEntiry(
+        UserDataBuilder({ createdAt: new Date(createdAt.getTime() + 1) }),
+      ),
+    ]
+    repository.items = items
+    const response = await sut.execute({})
+    expect(response).toStrictEqual({
+      items: [...items].reverse().map(item => item.toJSON()),
+      total: 2,
+      currentPage: 1,
+      lastPage: 1,
+      perPage: 15,
+    })
+  })
+
+  it('should return the users uning pagination, sort and filter', async () => {
+    const items = [
+      new UserEntiry(UserDataBuilder({ firstName: 'a' })),
+      new UserEntiry(UserDataBuilder({ firstName: 'AA' })),
+      new UserEntiry(UserDataBuilder({ firstName: 'Aa' })),
+      new UserEntiry(UserDataBuilder({ firstName: 'b' })),
+      new UserEntiry(UserDataBuilder({ firstName: 'c' })),
+    ]
+    repository.items = items
+    const response = await sut.execute({
+      page: 1,
+      perPage: 2,
+      sort: 'firstName',
+      sortDir: 'asc',
+      filter: 'a',
+    })
+    expect(response).toStrictEqual({
+      items: [items[1].toJSON(), items[2].toJSON()],
+      total: 3,
+      currentPage: 1,
+      lastPage: 2,
       perPage: 2,
     })
   })
