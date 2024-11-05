@@ -1,11 +1,9 @@
 import { DefaultUseCase } from '@/shared/application/usecases/use-case'
 import { UserRepository } from '../../domain/repositories/user-repository'
+import { UserRequest } from '../../infra/request/user.request'
 
 export namespace UserUpdateActiveUseCase {
-  export type Request = {
-    id: string
-    active: boolean
-  }
+  export type Request = UserRequest.UpdateActive
 
   export type Response = void
 

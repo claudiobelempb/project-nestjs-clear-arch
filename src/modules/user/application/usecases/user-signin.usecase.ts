@@ -1,18 +1,16 @@
 import { HashProvider } from '@/shared/application/providers/hash-provider'
 import { UserRepository } from '../../domain/repositories/user-repository'
 import { BadRequestError } from '../../../../shared/application/errors/bad-request.error'
-import { UserType } from '../response/user-response'
+import { UserResponse } from '../response/user-response'
 import { DefaultUseCase } from '@/shared/application/usecases/use-case'
 import { UserMapper } from '../mapper/user-response.mapper'
 import { InvalidCredentialsError } from '@/shared/application/errors/invalid-credentials-error'
+import { UserRequest } from '../../infra/request/user.request'
 
 export namespace UserSigninUseCase {
-  export type Request = {
-    email: string
-    password: string
-  }
+  export type Request = UserRequest.UserSignin
 
-  export type Response = UserType.UserResponse
+  export type Response = UserResponse.User
   export class UseCase implements DefaultUseCase<Request, Response> {
     constructor(
       private readonly userRepository: UserRepository.Repository,

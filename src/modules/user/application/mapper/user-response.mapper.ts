@@ -1,9 +1,9 @@
 import { UserEntiry } from '../../domain/entities/user.entity'
-import { UserType } from '../response/user-response'
+import { UserResponse } from '../response/user-response'
 
 export namespace UserMapper {
   export class Response {
-    static toResponse(entity: UserEntiry): UserType.UserResponse {
+    static toResponse(entity: UserEntiry): UserResponse.User {
       return entity.toJSON()
     }
   }

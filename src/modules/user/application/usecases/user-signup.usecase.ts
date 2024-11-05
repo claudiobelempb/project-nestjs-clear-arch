@@ -2,19 +2,14 @@ import { HashProvider } from '@/shared/application/providers/hash-provider'
 import { UserEntiry } from '../../domain/entities/user.entity'
 import { UserRepository } from '../../domain/repositories/user-repository'
 import { BadRequestError } from '../../../../shared/application/errors/bad-request.error'
-import { UserType } from '../response/user-response'
+import { UserResponse } from '../response/user-response'
 import { DefaultUseCase } from '@/shared/application/usecases/use-case'
 import { UserMapper } from '../mapper/user-response.mapper'
+import { UserRequest } from '../../infra/request/user.request'
 
 export namespace UserSignupUseCase {
-  export type Request = {
-    firstName: string
-    lastName: string
-    email: string
-    password: string
-  }
-
-  export type Response = UserType.UserResponse
+  export type Request = UserRequest.UserSignup
+  export type Response = UserResponse.User
   export class UseCase implements DefaultUseCase<Request, Response> {
     constructor(
       private readonly userRepository: UserRepository.Repository,

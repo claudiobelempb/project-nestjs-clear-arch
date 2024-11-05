@@ -2,15 +2,14 @@ import { DefaultUseCase } from '@/shared/application/usecases/use-case'
 import { UserRepository } from '../../domain/repositories/user-repository'
 import { SearchResponse } from '@/shared/application/response/search-reponse'
 import { DefaultResponse } from '@/shared/application/response/default-response'
-import { UserType } from '../response/user-response'
+import { UserResponse } from '../response/user-response'
 import { DefaultMapper } from '@/shared/application/mappers/default-mapper'
 import { UserMapper } from '../mapper/user-response.mapper'
 
 export namespace UserFindAllUseCase {
   export type Request = SearchResponse
 
-  export type Response =
-    DefaultResponse.PaginationResponse<UserType.UserResponse>
+  export type Response = DefaultResponse.PaginationResponse<UserResponse.User>
 
   export class UseCase implements DefaultUseCase<Request, Response> {
     constructor(private readonly userRepository: UserRepository.Repository) {}

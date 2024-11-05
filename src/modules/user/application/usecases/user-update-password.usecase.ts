@@ -1,18 +1,18 @@
 import { DefaultUseCase } from '@/shared/application/usecases/use-case'
-import { UserType } from '../response/user-response'
+import { UserResponse } from '../response/user-response'
 import { UserRepository } from '../../domain/repositories/user-repository'
 import { UserMapper } from '../mapper/user-response.mapper'
 import { InvalidPasswordError } from '@/shared/application/errors/invalid-password.error'
 import { HashProvider } from '@/shared/application/providers/hash-provider'
+import { UserRequest } from '../../infra/request/user.request'
 
 export namespace UserUpdatePasswordUseCase {
-  export type Request = {
-    id: string
+  export type Request = UserRequest.userId & {
     password: string
     oldPassword: string
   }
 
-  export type Response = UserType.UserResponse
+  export type Response = UserResponse.User
 
   export class UseCase implements DefaultUseCase<Request, Response> {
     constructor(

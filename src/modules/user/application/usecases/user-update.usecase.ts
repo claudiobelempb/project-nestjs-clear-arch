@@ -1,17 +1,14 @@
 import { DefaultUseCase } from '@/shared/application/usecases/use-case'
-import { UserType } from '../response/user-response'
+import { UserResponse } from '../response/user-response'
 import { UserRepository } from '../../domain/repositories/user-repository'
 import { BadRequestError } from '@/shared/application/errors/bad-request.error'
 import { UserMapper } from '../mapper/user-response.mapper'
+import { UserRequest } from '../../infra/request/user.request'
 
 export namespace UserUpdateUseCase {
-  export type Request = {
-    id: string
-    firstName: string
-    lastName: string
-  }
+  export type Request = UserRequest.UserSignup
 
-  export type Response = UserType.UserResponse
+  export type Response = UserResponse.User
 
   export class UseCase implements DefaultUseCase<Request, Response> {
     constructor(private readonly userRepository: UserRepository.Repository) {}
