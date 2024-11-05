@@ -1,11 +1,9 @@
 import { HashProvider } from '@/shared/application/providers/hash-provider'
-import { UserEntiry } from '../../domain/entities/user.entity'
 import { UserRepository } from '../../domain/repositories/user-repository'
 import { BadRequestError } from '../../../../shared/application/errors/bad-request.error'
 import { UserType } from '../response/user-response'
 import { DefaultUseCase } from '@/shared/application/usecases/use-case'
 import { UserMapper } from '../mapper/user-response.mapper'
-import { InvalidPasswordError } from '@/shared/application/errors/invalid-password.error'
 import { InvalidCredentialsError } from '@/shared/application/errors/invalid-credentials-error'
 
 export namespace UserSigninUseCase {
@@ -20,18 +18,18 @@ export namespace UserSigninUseCase {
       private readonly userRepository: UserRepository.Repository,
       private readonly hashProvider: HashProvider,
     ) {}
-    async execute(input: Request): Promise<Response> {
-      const { email, password } = input
+    async execute(request: Request): Promise<Response> {
+      const { email, password } = request
       if (!email || !password) {
         throw new BadRequestError('Input data not provided')
       }
       const entity = await this.userRepository.findByEmail(email)
-      const hashPassword = await this.hashProvider.compareHash(
+      const hashPasswordMatches = await this.hashProvider.compareHash(
         password,
         entity.password,
       )
 
-      if (!hashPassword) {
+      if (!hashPasswordMatches) {
         throw new InvalidCredentialsError('Inalid credentials')
       }
 

@@ -20,8 +20,8 @@ export namespace UserSignupUseCase {
       private readonly userRepository: UserRepository.Repository,
       private readonly hashProvider: HashProvider,
     ) {}
-    async execute(input: Request): Promise<Response> {
-      const { firstName, lastName, email, password } = input
+    async execute(request: Request): Promise<Response> {
+      const { firstName, lastName, email, password } = request
       if (!firstName || !lastName || !email || !password) {
         throw new BadRequestError('Input data not provided')
       }
@@ -29,7 +29,7 @@ export namespace UserSignupUseCase {
       const hashPassword = await this.hashProvider.generateHash(password)
 
       const entity = new UserEntiry(
-        Object.assign(input, {
+        Object.assign(request, {
           password: hashPassword,
         }),
       )
