@@ -1,6 +1,6 @@
 import { AppEntity } from '@/shared/domain/entities/default-entity'
 import { InMemoryRepository } from '../../in-memory.repository'
-import { EntityNotFoundError } from '@/shared/domain/errors/entity-not-found.error'
+import { EntityNotFoundError } from '@/shared/domain/errors/not-found.error'
 type StubEntityProps = {
   name: string
   price: number
