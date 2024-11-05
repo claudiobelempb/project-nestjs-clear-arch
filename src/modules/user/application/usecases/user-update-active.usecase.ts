@@ -1,7 +1,7 @@
 import { DefaultUseCase } from '@/shared/application/usecases/use-case'
 import { UserRepository } from '../../domain/repositories/user-repository'
 
-export namespace UserActiveUseCase {
+export namespace UserUpdateActiveUseCase {
   export type Request = {
     id: string
     active: boolean
