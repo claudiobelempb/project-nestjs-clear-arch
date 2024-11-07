@@ -9,7 +9,7 @@ import {
 import { UserFindByIdUseCase } from '../../application/usecases/user-findbyid.usecase'
 
 @Controller('users')
-export class UserFindByIDController {
+export class UserFindByIdController {
   @Inject(UserFindByIdUseCase)
   private readonly userFindByIdUseCase: UserFindByIdUseCase
 
