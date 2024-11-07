@@ -1,20 +1,20 @@
 import { UserInMemoryRepository } from '@/modules/user/infra/database/in-memory/repositories/user-in-memory.repository'
 import { UserSignupUseCase } from '../../user-signup.usecase'
-import { HashProvider } from '../../../../../../shared/application/providers/hash-provider'
+import { HashProvider } from '@/shared/application/providers/hash-provider'
 import { BcryptjsHashProvider } from '@/modules/user/infra/providers/hash-provider/bcryptjs-hash.provider'
 import { UserDataBuilder } from '@/modules/user/domain/testing/helper/user-data-builder'
 import { ConfictError } from '@/shared/domain/errors/conflict-error'
-import { BadRequestError } from '../../../../../../shared/application/errors/bad-request.error'
+import { BadRequestError } from '@/shared/application/errors/bad-request.error'
 
 describe('SignupUseCase unit tests', () => {
-  let sut: UserSignupUseCase.UseCase
+  let sut: UserSignupUseCase
   let repository: UserInMemoryRepository
   let hashProvider: HashProvider
 
   beforeEach(() => {
     repository = new UserInMemoryRepository()
     hashProvider = new BcryptjsHashProvider()
-    sut = new UserSignupUseCase.UseCase(repository, hashProvider)
+    sut = new UserSignupUseCase(repository, hashProvider)
   })
   it('Should create a user', async () => {
     const spyInsert = jest.spyOn(repository, 'insert')

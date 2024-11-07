@@ -7,31 +7,28 @@ import { UserMapper } from '../mapper/user-response.mapper'
 import { InvalidCredentialsError } from '@/shared/application/errors/invalid-credentials-error'
 import { UserRequest } from '../../infra/request/user.request'
 
-export namespace UserSigninUseCase {
-  export type Request = UserRequest.UserSignin
-
-  export type Response = UserResponse.User
-  export class UseCase implements DefaultUseCase<Request, Response> {
-    constructor(
-      private readonly userRepository: UserRepository.Repository,
-      private readonly hashProvider: HashProvider,
-    ) {}
-    async execute(request: Request): Promise<Response> {
-      const { email, password } = request
-      if (!email || !password) {
-        throw new BadRequestError('Input data not provided')
-      }
-      const entity = await this.userRepository.findByEmail(email)
-      const hashPasswordMatches = await this.hashProvider.compareHash(
-        password,
-        entity.password,
-      )
-
-      if (!hashPasswordMatches) {
-        throw new InvalidCredentialsError('Inalid credentials')
-      }
-
-      return UserMapper.Response.toResponse(entity)
+export class UserSigninUseCase
+  implements DefaultUseCase<UserRequest.UserSignin, UserResponse.User>
+{
+  constructor(
+    private readonly userRepository: UserRepository.Repository,
+    private readonly hashProvider: HashProvider,
+  ) {}
+  async execute(request: UserRequest.UserSignin): Promise<UserResponse.User> {
+    const { email, password } = request
+    if (!email || !password) {
+      throw new BadRequestError('Input data not provided')
     }
+    const entity = await this.userRepository.findByEmail(email)
+    const hashPasswordMatches = await this.hashProvider.compareHash(
+      password,
+      entity.password,
+    )
+
+    if (!hashPasswordMatches) {
+      throw new InvalidCredentialsError('Inalid credentials')
+    }
+
+    return UserMapper.Response.toResponse(entity)
   }
 }

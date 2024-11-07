@@ -8,19 +8,18 @@ import { BcryptjsHashProvider } from '@/modules/user/infra/providers/hash-provid
 import { InvalidPasswordError } from '@/shared/application/errors/invalid-password.error'
 
 describe('UserUpdatePasswordUseCase unit tests', () => {
-  let sut: UserUpdatePasswordUseCase.UseCase
+  let sut: UserUpdatePasswordUseCase
   let repository: UserInMemoryRepository
   let hashProvider: HashProvider
 
   beforeEach(() => {
     repository = new UserInMemoryRepository()
     hashProvider = new BcryptjsHashProvider()
-    sut = new UserUpdatePasswordUseCase.UseCase(repository, hashProvider)
+    sut = new UserUpdatePasswordUseCase(repository, hashProvider)
   })
   it('should throws error when entity not found', () => {
     expect(() =>
-      sut.execute({
-        id: 'fakeId',
+      sut.execute('fakeId', {
         password: 'test password',
         oldPassword: 'test old password',
       }),
@@ -31,8 +30,7 @@ describe('UserUpdatePasswordUseCase unit tests', () => {
     const entity = new UserEntiry(UserDataBuilder({}))
     repository.items = [entity]
     expect(() =>
-      sut.execute({
-        id: entity._id,
+      sut.execute(entity._id, {
         password: 'test password',
         oldPassword: '',
       }),
@@ -45,10 +43,9 @@ describe('UserUpdatePasswordUseCase unit tests', () => {
     const entity = new UserEntiry(UserDataBuilder({ password: '1234' }))
     repository.items = [entity]
     expect(() =>
-      sut.execute({
-        id: entity._id,
+      sut.execute(entity._id, {
         password: '',
-        oldPassword: '1234',
+        oldPassword: 'test old password',
       }),
     ).rejects.toThrow(
       new InvalidPasswordError('Old password and new password is required'),
@@ -60,8 +57,7 @@ describe('UserUpdatePasswordUseCase unit tests', () => {
     const entity = new UserEntiry(UserDataBuilder({ password: hashPassword }))
     repository.items = [entity]
     expect(() =>
-      sut.execute({
-        id: entity._id,
+      sut.execute(entity._id, {
         password: '4567',
         oldPassword: '123456',
       }),
@@ -74,8 +70,7 @@ describe('UserUpdatePasswordUseCase unit tests', () => {
     const items = [new UserEntiry(UserDataBuilder({ password: hashPassword }))]
     repository.items = items
 
-    const result = await sut.execute({
-      id: items[0]._id,
+    const result = await sut.execute(items[0]._id, {
       password: '4567',
       oldPassword: '1234',
     })

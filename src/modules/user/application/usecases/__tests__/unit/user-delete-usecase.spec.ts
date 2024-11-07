@@ -5,15 +5,15 @@ import { UserDataBuilder } from '@/modules/user/domain/testing/helper/user-data-
 import { UserDeleteUseCase } from '../../user-delete.usecase'
 
 describe('UserDeleteUseCase unit tests', () => {
-  let sut: UserDeleteUseCase.UseCase
+  let sut: UserDeleteUseCase
   let repository: UserInMemoryRepository
 
   beforeEach(() => {
     repository = new UserInMemoryRepository()
-    sut = new UserDeleteUseCase.UseCase(repository)
+    sut = new UserDeleteUseCase(repository)
   })
   it('Should throws error when entity not found', async () => {
-    await expect(() => sut.execute({ id: 'fakeId' })).rejects.toThrow(
+    await expect(() => sut.execute('fakeId')).rejects.toThrow(
       new NotFoundError('Entity not found'),
     )
   })
@@ -23,7 +23,7 @@ describe('UserDeleteUseCase unit tests', () => {
     const items = [new UserEntiry(UserDataBuilder({}))]
     repository.items = items
     expect(repository.items).toHaveLength(1)
-    await sut.execute({ id: items[0].id })
+    await sut.execute(items[0]._id)
     expect(spyDelete).toHaveBeenCalledTimes(1)
     expect(repository.items).toHaveLength(0)
   })

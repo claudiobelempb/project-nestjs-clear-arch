@@ -1,25 +1,23 @@
 import { Module } from '@nestjs/common'
 
-import { UserService } from './user.service'
-import { UserSingnupController } from './controllers/user-signup.controller'
-import { UserSignupUseCase } from '../application/usecases/user-signup.usecase'
-import { UserInMemoryRepository } from './database/in-memory/repositories/user-in-memory.repository'
-import { BcryptjsHashProvider } from './providers/hash-provider/bcryptjs-hash.provider'
-import { UserRepository } from '../domain/repositories/user-repository'
 import { HashProvider } from '@/shared/application/providers/hash-provider'
-import { UserSigninUseCase } from '../application/usecases/user-signin.usecase'
+import { UserDeleteUseCase } from '../application/usecases/user-delete.usecase'
 import { UserFindAllUseCase } from '../application/usecases/user-findall.usecase'
 import { UserFindByIdUseCase } from '../application/usecases/user-findbyid.usecase'
-import { UserUpdateUseCase } from '../application/usecases/user-update.usecase'
-import { UserUpdatePasswordUseCase } from '../application/usecases/user-update-password.usecase'
+import { UserSigninUseCase } from '../application/usecases/user-signin.usecase'
+import { UserSignupUseCase } from '../application/usecases/user-signup.usecase'
 import { UserUpdateActiveUseCase } from '../application/usecases/user-update-active.usecase'
-import { UserDeleteUseCase } from '../application/usecases/user-delete.usecase'
+import { UserUpdatePasswordUseCase } from '../application/usecases/user-update-password.usecase'
+import { UserUpdateUseCase } from '../application/usecases/user-update.usecase'
+import { UserRepository } from '../domain/repositories/user-repository'
+import { UserSingnupController } from './controllers/user-signup.controller'
+import { UserInMemoryRepository } from './database/in-memory/repositories/user-in-memory.repository'
+import { BcryptjsHashProvider } from './providers/hash-provider/bcryptjs-hash.provider'
 
 @Module({
   imports: [],
   controllers: [UserSingnupController],
   providers: [
-    UserService,
     {
       provide: 'UserRepository',
       useClass: UserInMemoryRepository,
@@ -29,70 +27,67 @@ import { UserDeleteUseCase } from '../application/usecases/user-delete.usecase'
       useClass: BcryptjsHashProvider,
     },
     {
-      provide: UserSignupUseCase.UseCase,
+      provide: UserSignupUseCase,
       useFactory: (
         userRepository: UserRepository.Repository,
         hashProvider: HashProvider,
       ) => {
-        return new UserSignupUseCase.UseCase(userRepository, hashProvider)
+        return new UserSignupUseCase(userRepository, hashProvider)
       },
       inject: ['UserRepository', 'HashProvider'],
     },
     {
-      provide: UserSigninUseCase.UseCase,
+      provide: UserSigninUseCase,
       useFactory: (
         userRepository: UserRepository.Repository,
         hashProvider: HashProvider,
       ) => {
-        return new UserSigninUseCase.UseCase(userRepository, hashProvider)
+        return new UserSigninUseCase(userRepository, hashProvider)
       },
       inject: ['UserRepository', 'HashProvider'],
     },
     {
-      provide: UserFindByIdUseCase.UseCase,
+      provide: UserFindByIdUseCase,
       useFactory: (userRepository: UserRepository.Repository) => {
-        return new UserFindByIdUseCase.UseCase(userRepository)
+        return new UserFindByIdUseCase(userRepository)
       },
       inject: ['UserRepository'],
     },
     {
-      provide: UserFindAllUseCase.UseCase,
+      provide: UserFindAllUseCase,
       useFactory: (userRepository: UserRepository.Repository) => {
-        return new UserFindAllUseCase.UseCase(userRepository)
+        return new UserFindAllUseCase(userRepository)
       },
       inject: ['UserRepository'],
     },
     {
-      provide: UserUpdateUseCase.UseCase,
+      provide: UserUpdateUseCase,
       useFactory: (userRepository: UserRepository.Repository) => {
-        return new UserUpdateUseCase.UseCase(userRepository)
+        return new UserUpdateUseCase(userRepository)
       },
       inject: ['UserRepository'],
     },
     {
-      provide: UserUpdatePasswordUseCase.UseCase,
+      provide: UserUpdatePasswordUseCase,
       useFactory: (
         userRepository: UserRepository.Repository,
         hashProvider: HashProvider,
       ) => {
-        return new UserUpdatePasswordUseCase.UseCase(
-          userRepository,
-          hashProvider,
-        )
+        return new UserUpdatePasswordUseCase(userRepository, hashProvider)
       },
       inject: ['UserRepository', 'HashProvider'],
     },
     {
-      provide: UserUpdateActiveUseCase.UseCase,
+      provide: UserUpdateActiveUseCase,
       useFactory: (userRepository: UserRepository.Repository) => {
-        return new UserUpdateActiveUseCase.UseCase(userRepository)
+        return new UserUpdateActiveUseCase(userRepository)
       },
       inject: ['UserRepository'],
     },
     {
-      provide: UserDeleteUseCase.UseCase,
+      provide: UserDeleteUseCase,
       useFactory: (userRepository: UserRepository.Repository) => {
-        return new UserDeleteUseCase.UseCase(userRepository)
+        return new UserDeleteUseCase(userRepository)
       },
       inject: ['UserRepository'],
     },

@@ -5,12 +5,12 @@ import { UserEntiry } from '@/modules/user/domain/entities/user.entity'
 import { UserDataBuilder } from '@/modules/user/domain/testing/helper/user-data-builder'
 
 describe('UserFindAllUseCase unit tests', () => {
-  let sut: UserFindAllUseCase.UseCase
+  let sut: UserFindAllUseCase
   let repository: UserInMemoryRepository
 
   beforeEach(() => {
     repository = new UserInMemoryRepository()
-    sut = new UserFindAllUseCase.UseCase(repository)
+    sut = new UserFindAllUseCase(repository)
   })
   it('toResponse method', () => {
     let result = new UserRepository.SearchResult({

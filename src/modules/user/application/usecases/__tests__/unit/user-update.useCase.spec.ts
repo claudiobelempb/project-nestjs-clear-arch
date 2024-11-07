@@ -6,17 +6,16 @@ import { UserDataBuilder } from '@/modules/user/domain/testing/helper/user-data-
 import { UserEntiry } from '@/modules/user/domain/entities/user.entity'
 
 describe('UserUpdateUseCase unit tests', () => {
-  let sut: UserUpdateUseCase.UseCase
+  let sut: UserUpdateUseCase
   let repository: UserInMemoryRepository
 
   beforeEach(() => {
     repository = new UserInMemoryRepository()
-    sut = new UserUpdateUseCase.UseCase(repository)
+    sut = new UserUpdateUseCase(repository)
   })
   it('should throws error when entity not found', () => {
     expect(() =>
-      sut.execute({
-        id: 'fakeId',
+      sut.execute('fakeId', {
         firstName: 'test firsName',
         lastName: 'test lastName',
       }),
@@ -25,8 +24,7 @@ describe('UserUpdateUseCase unit tests', () => {
 
   it('should throws error when firstName or lastName not provider', () => {
     expect(() =>
-      sut.execute({
-        id: 'fakeId',
+      sut.execute('fakeId', {
         firstName: '',
         lastName: '',
       }),
@@ -38,8 +36,7 @@ describe('UserUpdateUseCase unit tests', () => {
     const items = [new UserEntiry(UserDataBuilder({}))]
     repository.items = items
 
-    const result = await sut.execute({
-      id: items[0]._id,
+    const result = await sut.execute(items[0]._id, {
       firstName: 'new first name',
       lastName: 'new last name',
     })

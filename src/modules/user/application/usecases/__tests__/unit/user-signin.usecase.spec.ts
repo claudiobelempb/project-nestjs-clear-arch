@@ -9,14 +9,14 @@ import { NotFoundError } from '@/shared/domain/errors/not-found.error'
 import { InvalidCredentialsError } from '@/shared/application/errors/invalid-credentials-error'
 
 describe('UserSigninUseCase unit tests', () => {
-  let sut: UserSigninUseCase.UseCase
+  let sut: UserSigninUseCase
   let repository: UserInMemoryRepository
   let hashProvider: HashProvider
 
   beforeEach(() => {
     repository = new UserInMemoryRepository()
     hashProvider = new BcryptjsHashProvider()
-    sut = new UserSigninUseCase.UseCase(repository, hashProvider)
+    sut = new UserSigninUseCase(repository, hashProvider)
   })
   it('Should authenticate a user', async () => {
     const spyFindByEmail = jest.spyOn(repository, 'findByEmail')

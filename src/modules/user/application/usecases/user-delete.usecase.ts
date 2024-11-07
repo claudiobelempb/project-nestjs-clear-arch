@@ -1,17 +1,9 @@
 import { DefaultUseCase } from '@/shared/application/usecases/use-case'
 import { UserRepository } from '../../domain/repositories/user-repository'
-import { Injectable } from '@nestjs/common'
-export namespace UserDeleteUseCase {
-  export type Request = {
-    id: string
-  }
 
-  export type Response = void
-  @Injectable()
-  export class UseCase implements DefaultUseCase<Request, Response> {
-    constructor(private readonly userRepository: UserRepository.Repository) {}
-    async execute(request: Request): Promise<Response> {
-      await this.userRepository.delete(request.id)
-    }
+export class UserDeleteUseCase implements DefaultUseCase<string, void> {
+  constructor(private readonly userRepository: UserRepository.Repository) {}
+  async execute(id: string): Promise<void> {
+    await this.userRepository.delete(id)
   }
 }

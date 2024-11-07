@@ -1,16 +1,25 @@
-import { Body, Controller, Post } from '@nestjs/common'
+import {
+  Body,
+  Controller,
+  HttpCode,
+  HttpStatus,
+  Inject,
+  Post,
+} from '@nestjs/common'
 import { UserRequest } from '../request/user.request'
 import { UserResponse } from '../../application/response/user-response'
 import { UserSignupUseCase } from '../../application/usecases/user-signup.usecase'
 
 @Controller('users')
 export class UserSingnupController {
-  constructor(private readonly userSingupUseCase: UserSignupUseCase.UseCase) {}
+  @Inject(UserSignupUseCase)
+  private readonly userSingupUseCase: UserSignupUseCase
 
+  @HttpCode(HttpStatus.CREATED)
   @Post()
   async handle(
     @Body() request: UserRequest.UserSignup,
   ): Promise<UserResponse.User> {
-    return this.userSingupUseCase.execute(request)
+    return await this.userSingupUseCase.execute(request)
   }
 }

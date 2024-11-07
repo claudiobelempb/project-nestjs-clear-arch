@@ -5,7 +5,13 @@ import {
 import { UserResponse } from '../../application/response/user-response'
 
 export namespace UserRequest {
-  export class UserSignup implements Omit<UserResponse.User, 'active'> {
+  export type User = {
+    firstName: string
+    lastName: string
+    email: string
+    password: string
+  }
+  export type UserSignup = Omit<UserResponse.User, 'active'> & {
     id: string
     firstName: string
     lastName: string
@@ -13,31 +19,33 @@ export namespace UserRequest {
     password: string
   }
 
-  export class UserSignin
-    implements
-      Omit<UserResponse.User, 'id' | 'firstName' | 'lastName' | 'active'>
-  {
+  export type UserSignin = Omit<
+    UserResponse.User,
+    'id' | 'firstName' | 'lastName' | 'active'
+  > & {
     email: string
     password: string
   }
 
-  export class UpdatePassword
-    implements Omit<UserResponse.UpdatePassword, 'id'>
-  {
+  export type UserUpdate = {
+    firstName: string
+    lastName: string
+  }
+
+  export type UpdatePassword = Omit<UserResponse.UpdatePassword, 'id'> & {
     password: string
     oldPassword: string
   }
 
-  export class UpdateActive {
-    id: string
+  export type UpdateActive = {
     active: boolean
   }
 
-  export class userId {
+  export interface userId {
     id: string
   }
 
-  export class FindAll implements SearchResponse {
+  export type Search = SearchResponse & {
     page?: number
     perPage?: number
     sort?: string
