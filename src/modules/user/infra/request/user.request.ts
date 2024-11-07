@@ -11,8 +11,7 @@ export namespace UserRequest {
     email: string
     password: string
   }
-  export type UserSignup = Omit<UserResponse.User, 'active'> & {
-    id: string
+  export type UserSignup = {
     firstName: string
     lastName: string
     email: string
