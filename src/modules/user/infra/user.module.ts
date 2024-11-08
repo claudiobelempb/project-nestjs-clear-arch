@@ -13,14 +13,27 @@ import { UserRepository } from '../domain/repositories/user-repository'
 import { UserSingnupController } from './controllers/user-signup.controller'
 import { UserInMemoryRepository } from './database/in-memory/repositories/user-in-memory.repository'
 import { BcryptjsHashProvider } from './providers/hash-provider/bcryptjs-hash.provider'
+import { PrismaService } from '@/shared/infra/database/prisma.service'
+import { UserPrismaRepository } from './database/prisma/repositories/user-prisma.repositoy'
 
 @Module({
   imports: [],
   controllers: [UserSingnupController],
   providers: [
     {
+      provide: 'PrismaService',
+      useClass: PrismaService,
+    },
+    // {
+    //   provide: 'UserRepository',
+    //   useClass: UserInMemoryRepository,
+    // },
+    {
       provide: 'UserRepository',
-      useClass: UserInMemoryRepository,
+      useFactory: (prismaService: PrismaService) => {
+        return new UserPrismaRepository(prismaService)
+      },
+      inject: ['PrismaService'],
     },
     {
       provide: 'HashProvider',
