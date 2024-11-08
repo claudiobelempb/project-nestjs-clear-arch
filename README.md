@@ -23,3 +23,4 @@ docker compose ps
 npm i prisma -D
 npm i @prisma/client
 npx prisma init
+npx prisma generate --schema ./src/shared/infra/database/prisma/schema.prisma
