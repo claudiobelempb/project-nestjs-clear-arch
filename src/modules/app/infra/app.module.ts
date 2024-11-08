@@ -7,6 +7,7 @@ import { TypeOrmModule } from '@nestjs/typeorm'
 import { EnvConfigModule } from '@/shared/infra/env-config/env-config.module'
 import { UserModule } from '@/modules/user/infra/user.module'
 import { MessageModule } from '@/modules/message/infrastructure/message.module'
+import { DatabaseModule } from '@/shared/infra/database/prisma/database.module'
 
 @Module({
   imports: [
@@ -24,6 +25,7 @@ import { MessageModule } from '@/modules/message/infrastructure/message.module'
     UserModule,
     MessageModule,
     EnvConfigModule,
+    DatabaseModule,
   ],
   controllers: [AppController],
   providers: [AppService],
