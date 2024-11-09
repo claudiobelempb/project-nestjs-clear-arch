@@ -1,10 +1,8 @@
-import { PrismaService } from '@/shared/infra/database/prisma.service'
-import { PrismaClient, User } from '@prisma/client'
-import { execSync } from 'node:child_process'
-import { UserModelMapper } from '../../user-model.mapper'
-import { ValidationError } from '@/shared/domain/errors/validation-error'
 import { UserEntiry } from '@/modules/user/domain/entities/user.entity'
+import { ValidationError } from '@/shared/domain/errors/validation-error'
 import { setupPrismaTests } from '@/shared/infra/database/prisma/testing/setup-prisma-test'
+import { PrismaClient, User } from '@prisma/client'
+import { UserModelMapper } from '../../user-model.mapper'
 
 describe('UserModelMapper integration test', () => {
   let prismaService: PrismaClient
