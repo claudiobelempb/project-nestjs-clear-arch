@@ -5,7 +5,7 @@ import { PrismaService } from '@/shared/infra/database/prisma.service'
 import { UserModelMapper } from '../model/user-model.mapper'
 
 export class UserPrismaRepository implements UserRepository.Repository {
-  sortableFields: string[]
+  sortableFields: string[] = ['firstName', 'createdAt']
 
   constructor(private readonly prismaService: PrismaService) {}
 
@@ -18,11 +18,53 @@ export class UserPrismaRepository implements UserRepository.Repository {
   async search(
     props: UserRepository.SearchParams,
   ): Promise<UserRepository.SearchResult> {
-    throw new Error('Method not implemented.')
+    const sortable = this.sortableFields?.includes(props.sort)
+    const orderByFilter = sortable ? props.sort : 'createdAt'
+    const orderByDir = sortable ? props.sortDir : 'desc'
+
+    const count = await this.prismaService.user.count({
+      ...(props.filter && {
+        where: {
+          firstName: {
+            contains: props.filter,
+            mode: 'insensitive',
+          },
+        },
+      }),
+    })
+
+    const models = await this.prismaService.user.findMany({
+      ...(props.filter && {
+        where: {
+          firstName: {
+            contains: props.filter,
+            mode: 'insensitive',
+          },
+        },
+        orderBy: {
+          [orderByFilter]: orderByDir,
+        },
+        skip:
+          props.page && props.page > 0 ? (props.page - 1) * props.perPage : 1,
+        take: props.perPage && props.perPage > 0 ? props.perPage : 15,
+      }),
+    })
+
+    return new UserRepository.SearchResult({
+      items: models.map(model => UserModelMapper.toEntity(model)),
+      total: count,
+      currentPage: props.page,
+      perPage: props.perPage,
+      sort: orderByFilter,
+      sortDir: orderByDir,
+      filter: props.filter,
+    })
   }
 
   async insert(entity: UserEntiry): Promise<void> {
-    throw new Error('Method not implemented.')
+    await this.prismaService.user.create({
+      data: entity.toJSON(),
+    })
   }
 
   async findById(id: string): Promise<UserEntiry> {
@@ -30,7 +72,8 @@ export class UserPrismaRepository implements UserRepository.Repository {
   }
 
   async findAll(): Promise<UserEntiry[]> {
-    throw new Error('Method not implemented.')
+    const models = await this.prismaService.user.findMany()
+    return models.map(model => UserModelMapper.toEntity(model))
   }
 
   async update(entity: UserEntiry): Promise<void> {
