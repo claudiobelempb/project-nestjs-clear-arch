@@ -2,20 +2,18 @@ import { UserEntiry } from '@/modules/user/domain/entities/user.entity'
 import { UserRepository } from '@/modules/user/domain/repositories/user-repository'
 import { NotFoundError } from '@/shared/domain/errors/not-found.error'
 import { PrismaService } from '@/shared/infra/database/prisma.service'
-import { UserModelMapper } from '../user-model.mapper'
+import { UserModelMapper } from '../model/user-model.mapper'
 
 export class UserPrismaRepository implements UserRepository.Repository {
   sortableFields: string[]
 
   constructor(private readonly prismaService: PrismaService) {}
 
-  async findByEmail(id: string): Promise<UserEntiry> {
-    return this._get(id)
+  async findByEmail(email: string): Promise<UserEntiry> {
+    return this._get(email)
   }
 
-  async emailExists(email: string): Promise<void> {
-    throw new Error('Method not implemented.')
-  }
+  async emailExists(email: string): Promise<void> {}
 
   async search(
     props: UserRepository.SearchParams,
@@ -28,7 +26,7 @@ export class UserPrismaRepository implements UserRepository.Repository {
   }
 
   async findById(id: string): Promise<UserEntiry> {
-    throw new Error('Method not implemented.')
+    return this._get(id)
   }
 
   async findAll(): Promise<UserEntiry[]> {
