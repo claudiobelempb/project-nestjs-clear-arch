@@ -9,6 +9,6 @@ export class UserFindByIdUseCase
   constructor(private readonly userRepository: UserRepository.Repository) {}
   async execute(id: string): Promise<UserResponse.User> {
     const entity = await this.userRepository.findById(id)
-    return UserMapper.Response.toResponse(entity)
+    return UserMapper.toResponse(entity)
   }
 }

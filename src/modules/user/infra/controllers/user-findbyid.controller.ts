@@ -7,6 +7,7 @@ import {
   Param,
 } from '@nestjs/common'
 import { UserFindByIdUseCase } from '../../application/usecases/user-findbyid.usecase'
+import { UserMapper } from '../../application/mapper/user-response.mapper'
 
 @Controller('users')
 export class UserFindByIdController {
@@ -14,8 +15,9 @@ export class UserFindByIdController {
   private readonly userFindByIdUseCase: UserFindByIdUseCase
 
   @HttpCode(HttpStatus.OK)
-  @Get()
-  async handle(@Param() id: string) {
-    return await this.userFindByIdUseCase.execute(id)
+  @Get(':id')
+  async handle(@Param('id') id: string) {
+    const presente = await this.userFindByIdUseCase.execute(id)
+    return UserMapper.toPresente(presente)
   }
 }

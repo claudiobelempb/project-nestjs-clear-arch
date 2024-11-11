@@ -29,6 +29,6 @@ export class UserSigninUseCase
       throw new InvalidCredentialsError('Inalid credentials')
     }
 
-    return UserMapper.Response.toResponse(entity)
+    return UserMapper.toResponse(entity)
   }
 }

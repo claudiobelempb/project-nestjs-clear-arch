@@ -9,6 +9,8 @@ import {
 import { UserRequest } from '../request/user.request'
 import { UserResponse } from '../../application/response/user-response'
 import { UserSignupUseCase } from '../../application/usecases/user-signup.usecase'
+import { UserPresenter } from '../presenters/user.presenter'
+import { UserMapper } from '../../application/mapper/user-response.mapper'
 
 @Controller('users')
 export class UserSingnupController {
@@ -20,6 +22,7 @@ export class UserSingnupController {
   async handle(
     @Body() request: UserRequest.UserSignup,
   ): Promise<UserResponse.User> {
-    return await this.userSingupUseCase.execute(request)
+    const presente = await this.userSingupUseCase.execute(request)
+    return UserMapper.toPresente(presente)
   }
 }

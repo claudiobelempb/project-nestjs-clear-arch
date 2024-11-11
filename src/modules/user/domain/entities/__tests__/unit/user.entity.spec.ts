@@ -20,9 +20,9 @@ describe('User Entity uni teste', () => {
   })
 
   it('Getter of firstName field', () => {
-    expect(sut.props.firstName).toBeDefined()
-    expect(sut.props.firstName).toEqual(props.firstName)
-    expect(typeof sut.props.firstName).toBe('string')
+    expect(sut.firstName).toBeDefined()
+    expect(sut.firstName).toEqual(props.firstName)
+    expect(typeof sut.firstName).toBe('string')
   })
 
   it('Setter of firstName field', () => {
@@ -32,9 +32,9 @@ describe('User Entity uni teste', () => {
   })
 
   it('Getter of lastName field', () => {
-    expect(sut.props.lastName).toBeDefined()
-    expect(sut.props.lastName).toEqual(props.lastName)
-    expect(typeof sut.props.lastName).toBe('string')
+    expect(sut.lastName).toBeDefined()
+    expect(sut.lastName).toEqual(props.lastName)
+    expect(typeof sut.lastName).toBe('string')
   })
 
   it('Setter of lastName field', () => {
@@ -44,15 +44,15 @@ describe('User Entity uni teste', () => {
   })
 
   it('Getter of email field', () => {
-    expect(sut.props.email).toBeDefined()
-    expect(sut.props.email).toEqual(props.email)
-    expect(typeof sut.props.email).toBe('string')
+    expect(sut.email).toBeDefined()
+    expect(sut.email).toEqual(props.email)
+    expect(typeof sut.email).toBe('string')
   })
 
   it('Getter of password field', () => {
-    expect(sut.props.password).toBeDefined()
-    expect(sut.props.password).toEqual(props.password)
-    expect(typeof sut.props.password).toBe('string')
+    expect(sut.password).toBeDefined()
+    expect(sut.password).toEqual(props.password)
+    expect(typeof sut.password).toBe('string')
   })
 
   it('Setter of password field', () => {
@@ -62,20 +62,20 @@ describe('User Entity uni teste', () => {
   })
 
   it('Getter of active field', () => {
-    expect(sut.props.active).toBeDefined()
-    expect(sut.props.active).toEqual(props.active)
-    expect(typeof sut.props.active).toBe('boolean')
-    expect(sut.props.active).toBeTruthy()
+    expect(sut.active).toBeDefined()
+    expect(sut.active).toEqual(props.active)
+    expect(typeof sut.active).toBe('boolean')
+    expect(sut.active).toBeTruthy()
   })
 
   it('Getter of createdAt field', () => {
-    expect(sut.props.createdAt).toBeDefined()
-    expect(sut.props.createdAt).toBeInstanceOf(Date)
+    expect(sut.createdAt).toBeDefined()
+    expect(sut.createdAt).toBeInstanceOf(Date)
   })
 
   it('Getter of updatedAt field', () => {
-    expect(sut.props.updatedAt).toBeDefined()
-    expect(sut.props.updatedAt).toBeInstanceOf(Date)
+    expect(sut.updatedAt).toBeDefined()
+    expect(sut.updatedAt).toBeInstanceOf(Date)
   })
 
   it('Should update a user', () => {

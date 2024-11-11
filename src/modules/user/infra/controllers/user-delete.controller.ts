@@ -14,8 +14,8 @@ export class UserDeleteController {
   private readonly userDeleteUseCase: UserDeleteUseCase
 
   @HttpCode(HttpStatus.NO_CONTENT)
-  @Delete()
-  async handle(@Param() id: string): Promise<void> {
+  @Delete(':id')
+  async handle(@Param('id') id: string): Promise<void> {
     await this.userDeleteUseCase.execute(id)
   }
 }

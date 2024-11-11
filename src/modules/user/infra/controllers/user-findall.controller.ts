@@ -1,8 +1,16 @@
-import { Get, HttpCode, HttpStatus, Inject, Query } from '@nestjs/common'
+import {
+  Controller,
+  Get,
+  HttpCode,
+  HttpStatus,
+  Inject,
+  Query,
+} from '@nestjs/common'
 import { UserFindAllUseCase } from '../../application/usecases/user-findall.usecase'
 import { UserRequest } from '../request/user.request'
 import { UserResponse } from '../../application/response/user-response'
 
+@Controller('users')
 export class UserFindAllController {
   @Inject(UserFindAllUseCase)
   private readonly userFindAllUseCase: UserFindAllUseCase

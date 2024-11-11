@@ -1,6 +1,7 @@
 import { Module } from '@nestjs/common'
 
 import { HashProvider } from '@/shared/application/providers/hash-provider'
+import { PrismaService } from '@/shared/infra/database/prisma.service'
 import { UserDeleteUseCase } from '../application/usecases/user-delete.usecase'
 import { UserFindAllUseCase } from '../application/usecases/user-findall.usecase'
 import { UserFindByIdUseCase } from '../application/usecases/user-findbyid.usecase'
@@ -11,14 +12,27 @@ import { UserUpdatePasswordUseCase } from '../application/usecases/user-update-p
 import { UserUpdateUseCase } from '../application/usecases/user-update.usecase'
 import { UserRepository } from '../domain/repositories/user-repository'
 import { UserSingnupController } from './controllers/user-signup.controller'
-import { UserInMemoryRepository } from './database/in-memory/repositories/user-in-memory.repository'
-import { BcryptjsHashProvider } from './providers/hash-provider/bcryptjs-hash.provider'
-import { PrismaService } from '@/shared/infra/database/prisma.service'
 import { UserPrismaRepository } from './database/prisma/repositories/user-prisma.repositoy'
+import { BcryptjsHashProvider } from './providers/hash-provider/bcryptjs-hash.provider'
+import { UserFindAllController } from './controllers/user-findall.controller'
+import { UserFindByIdController } from './controllers/user-findbyid.controller'
+import { UserUpdatePasswordController } from './controllers/user-update-password.controller'
+import { UserUpdateActiveController } from './controllers/user-update-active.controller'
+import { UserUpdateController } from './controllers/user-update.constroller'
+import { UserDeleteController } from './controllers/user-delete.controller'
 
 @Module({
   imports: [],
-  controllers: [UserSingnupController],
+  controllers: [
+    UserSingnupController,
+    UserSingnupController,
+    UserFindAllController,
+    UserFindByIdController,
+    UserUpdateController,
+    UserDeleteController,
+    UserUpdatePasswordController,
+    UserUpdateActiveController,
+  ],
   providers: [
     {
       provide: 'PrismaService',

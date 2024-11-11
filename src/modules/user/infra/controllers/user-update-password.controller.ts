@@ -16,9 +16,9 @@ export class UserUpdatePasswordController {
   private readonly userUpadatePasswordUseCase: UserUpdatePasswordUseCase
 
   @HttpCode(HttpStatus.NO_CONTENT)
-  @Patch()
+  @Patch(':id')
   async handle(
-    @Param() id: string,
+    @Param('id') id: string,
     @Body() request: UserRequest.UpdatePassword,
   ): Promise<void> {
     await this.userUpadatePasswordUseCase.execute(id, request)

@@ -19,7 +19,7 @@ export class UserFindAllUseCase
     result: UserRepository.SearchResult,
   ): UserResponse.Pagination {
     const items = result.items.map(item => {
-      return UserMapper.Response.toResponse(item)
+      return UserMapper.toResponse(item)
     })
     return DefaultMapper.PaginationMapper.toResponse(items, result)
   }

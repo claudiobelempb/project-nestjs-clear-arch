@@ -14,9 +14,9 @@ export class UserUpdateActiveController {
   @Inject(UserUpdateActiveUseCase)
   private readonly userUpdateActiveUseCase: UserUpdateActiveUseCase
 
-  @Patch()
   @HttpCode(HttpStatus.NO_CONTENT)
-  async handle(@Param() id: string, @Body() active: boolean) {
+  @Patch(':id')
+  async handle(@Param('id') id: string, @Body() active: boolean) {
     return await this.userUpdateActiveUseCase.execute(id, active)
   }
 }

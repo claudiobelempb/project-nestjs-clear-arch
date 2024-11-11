@@ -18,6 +18,6 @@ export class UserUpdateUseCase {
     const entity = await this.userRepository.findById(id)
     entity.update({ firstName, lastName })
     await this.userRepository.update(entity)
-    return UserMapper.Response.toResponse(entity)
+    return UserMapper.toResponse(entity)
   }
 }

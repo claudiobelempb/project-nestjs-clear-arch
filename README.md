@@ -8,6 +8,7 @@ npm i @types/uuid -D
 npm i bcryptjs
 npm i @types/bcryptjs -D
 npm i dotenv-cli
+npm i class-transformer
 ```
 
 ### Validations

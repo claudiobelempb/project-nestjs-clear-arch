@@ -7,9 +7,7 @@ import { DefaultUseCase } from '@/shared/application/usecases/use-case'
 import { UserMapper } from '../mapper/user-response.mapper'
 import { UserRequest } from '../../infra/request/user.request'
 
-export class UserSignupUseCase
-  implements DefaultUseCase<UserRequest.User, UserResponse.User>
-{
+export class UserSignupUseCase {
   constructor(
     private readonly userRepository: UserRepository.Repository,
     private readonly hashProvider: HashProvider,
@@ -28,6 +26,6 @@ export class UserSignupUseCase
       }),
     )
     await this.userRepository.insert(entity)
-    return UserMapper.Response.toResponse(entity)
+    return UserMapper.toResponse(entity)
   }
 }
