@@ -17,7 +17,7 @@ export class UserFindByIdController {
   @HttpCode(HttpStatus.OK)
   @Get(':id')
   async handle(@Param('id') id: string) {
-    const presente = await this.userFindByIdUseCase.execute(id)
-    return UserMapper.toPresente(presente)
+    const response = await this.userFindByIdUseCase.execute(id)
+    return UserMapper.toPresente(response)
   }
 }

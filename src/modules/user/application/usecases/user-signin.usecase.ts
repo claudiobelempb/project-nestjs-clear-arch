@@ -1,20 +1,17 @@
-import { HashProvider } from '@/shared/application/providers/hash-provider'
-import { UserRepository } from '../../domain/repositories/user-repository'
-import { BadRequestError } from '../../../../shared/application/errors/bad-request.error'
-import { UserResponse } from '../response/user-response'
-import { DefaultUseCase } from '@/shared/application/usecases/use-case'
-import { UserMapper } from '../mapper/user-response.mapper'
 import { InvalidCredentialsError } from '@/shared/application/errors/invalid-credentials-error'
+import { HashProvider } from '@/shared/application/providers/hash-provider'
+import { BadRequestError } from '../../../../shared/application/errors/bad-request.error'
+import { UserRepository } from '../../domain/repositories/user-repository'
 import { UserRequest } from '../../infra/request/user.request'
+import { UserMapper } from '../mapper/user-response.mapper'
+import { UserResponse } from '../response/user-response'
 
-export class UserSigninUseCase
-  implements DefaultUseCase<UserRequest.UserSignin, UserResponse.User>
-{
+export class UserSigninUseCase {
   constructor(
     private readonly userRepository: UserRepository.Repository,
     private readonly hashProvider: HashProvider,
   ) {}
-  async execute(request: UserRequest.UserSignin): Promise<UserResponse.User> {
+  async execute(request: UserRequest.Signin): Promise<UserResponse.User> {
     const { email, password } = request
     if (!email || !password) {
       throw new BadRequestError('Input data not provided')

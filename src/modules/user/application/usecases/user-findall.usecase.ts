@@ -6,10 +6,12 @@ import { UserMapper } from '../mapper/user-response.mapper'
 import { UserResponse } from '../response/user-response'
 
 export class UserFindAllUseCase
-  implements DefaultUseCase<UserRequest.Search, UserResponse.Pagination>
+  implements DefaultUseCase<UserRequest.Pagination, UserResponse.Pagination>
 {
   constructor(private readonly userRepository: UserRepository.Repository) {}
-  async execute(request: UserRequest.Search): Promise<UserResponse.Pagination> {
+  async execute(
+    request: UserRequest.Pagination,
+  ): Promise<UserResponse.Pagination> {
     const params = new UserRepository.SearchParams(request)
     const result = await this.userRepository.search(params)
     return this.toResponse(result)

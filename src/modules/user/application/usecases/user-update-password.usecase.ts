@@ -1,9 +1,8 @@
-import { UserResponse } from '../response/user-response'
-import { UserRepository } from '../../domain/repositories/user-repository'
-import { UserMapper } from '../mapper/user-response.mapper'
 import { InvalidPasswordError } from '@/shared/application/errors/invalid-password.error'
 import { HashProvider } from '@/shared/application/providers/hash-provider'
+import { UserRepository } from '../../domain/repositories/user-repository'
 import { UserRequest } from '../../infra/request/user.request'
+import { UserMapper } from '../mapper/user-response.mapper'
 export class UserUpdatePasswordUseCase {
   constructor(
     private readonly userRepository: UserRepository.Repository,

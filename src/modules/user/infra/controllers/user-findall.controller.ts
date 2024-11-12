@@ -6,9 +6,9 @@ import {
   Inject,
   Query,
 } from '@nestjs/common'
+import { UserResponse } from '../../application/response/user-response'
 import { UserFindAllUseCase } from '../../application/usecases/user-findall.usecase'
 import { UserRequest } from '../request/user.request'
-import { UserResponse } from '../../application/response/user-response'
 
 @Controller('users')
 export class UserFindAllController {
@@ -18,7 +18,7 @@ export class UserFindAllController {
   @HttpCode(HttpStatus.OK)
   @Get()
   async handle(
-    @Query() request: UserRequest.Search,
+    @Query() request: UserRequest.Pagination,
   ): Promise<UserResponse.Pagination> {
     return await this.userFindAllUseCase.execute(request)
   }

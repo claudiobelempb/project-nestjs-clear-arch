@@ -1,54 +1,72 @@
-import {
-  SearchResponse,
-  SortDirectionResponse,
-} from '@/shared/application/response/search-reponse'
-import { UserResponse } from '../../application/response/user-response'
+import { SearchParams } from '@/shared/domain/repositories/utils/search-params'
+import { IsEmail, IsNotEmpty, IsString } from 'class-validator'
 
 export namespace UserRequest {
-  export type User = {
-    firstName: string
-    lastName: string
-    email: string
-    password: string
-  }
-  export type UserSignup = {
+  export class User {
+    id: string
     firstName: string
     lastName: string
     email: string
     password: string
   }
 
-  export type UserSignin = Omit<
-    UserResponse.User,
-    'id' | 'firstName' | 'lastName' | 'active'
-  > & {
+  export class Signup implements Omit<User, 'id'> {
+    @IsString()
+    @IsNotEmpty()
+    firstName: string
+
+    @IsString()
+    @IsNotEmpty()
+    lastName: string
+
+    @IsString()
+    @IsNotEmpty()
+    @IsEmail()
     email: string
+
+    @IsString()
+    @IsNotEmpty()
     password: string
   }
 
-  export type UserUpdate = {
+  export class Signin implements Omit<User, 'id' | 'firstName' | 'lastName'> {
+    @IsString()
+    @IsNotEmpty()
+    @IsEmail()
+    email: string
+
+    @IsString()
+    @IsNotEmpty()
+    password: string
+  }
+
+  export class Update implements Omit<User, 'id' | 'email' | 'password'> {
+    @IsString()
+    @IsNotEmpty()
     firstName: string
+
+    @IsString()
+    @IsNotEmpty()
     lastName: string
   }
 
-  export type UpdatePassword = Omit<UserResponse.UpdatePassword, 'id'> & {
+  export class UpdatePassword
+    implements Omit<User, 'id' | 'firstName' | 'lastName' | 'email'>
+  {
+    @IsString()
+    @IsNotEmpty()
     password: string
+
+    @IsString()
+    @IsNotEmpty()
     oldPassword: string
   }
 
-  export type UpdateActive = {
-    active: boolean
-  }
-
-  export interface userId {
-    id: string
-  }
-
-  export type Search = SearchResponse & {
-    page?: number
+  export class Pagination {
+    items: User[]
+    total?: number
+    currentPage?: number
+    lastPage?: number
     perPage?: number
-    sort?: string
-    sortDir?: SortDirectionResponse
-    filter?: string
   }
 }

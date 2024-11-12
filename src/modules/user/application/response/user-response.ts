@@ -1,6 +1,5 @@
-import { DefaultResponse } from '@/shared/application/response/default-response'
 export namespace UserResponse {
-  export type User = {
+  export class User {
     id: string
     firstName: string
     lastName: string
@@ -10,17 +9,40 @@ export namespace UserResponse {
     updatedAt?: Date
   }
 
-  export type UpdatePassword = {
+  export class Update
+    implements
+      Omit<
+        User,
+        'id' | 'email' | 'password' | 'active' | 'createdAt' | 'updatedAt'
+      >
+  {
+    firstName: string
+    lastName: string
+  }
+
+  export class UpdatePassword
+    implements
+      Omit<
+        User,
+        | 'id'
+        | 'firstName'
+        | 'lastName'
+        | 'email'
+        | 'password'
+        | 'active'
+        | 'createdAt'
+        | 'updatedAt'
+      >
+  {
     password: string
     oldPassword: string
   }
 
-  export type Pagination =
-    DefaultResponse.PaginationResponse<UserResponse.User> & {
-      items: User[]
-      total?: number
-      currentPage?: number
-      lastPage?: number
-      perPage?: number
-    }
+  export class Pagination {
+    items: User[]
+    total?: number
+    currentPage?: number
+    lastPage?: number
+    perPage?: number
+  }
 }

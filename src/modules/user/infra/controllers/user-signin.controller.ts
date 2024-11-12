@@ -6,10 +6,10 @@ import {
   Inject,
   Post,
 } from '@nestjs/common'
+import { UserMapper } from '../../application/mapper/user-response.mapper'
+import { UserResponse } from '../../application/response/user-response'
 import { UserSigninUseCase } from '../../application/usecases/user-signin.usecase'
 import { UserRequest } from '../request/user.request'
-import { UserResponse } from '../../application/response/user-response'
-import { UserMapper } from '../../application/mapper/user-response.mapper'
 
 @Controller('users')
 export class UserSigninController {
@@ -19,7 +19,7 @@ export class UserSigninController {
   @HttpCode(HttpStatus.OK)
   @Post('login')
   async handle(
-    @Body() request: UserRequest.UserSignin,
+    @Body() request: UserRequest.Signin,
   ): Promise<UserResponse.User> {
     const presente = await this.userSigninUseCase.execute(request)
     return UserMapper.toPresente(presente)

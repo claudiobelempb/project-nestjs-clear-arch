@@ -6,11 +6,10 @@ import {
   Inject,
   Post,
 } from '@nestjs/common'
-import { UserRequest } from '../request/user.request'
+import { UserMapper } from '../../application/mapper/user-response.mapper'
 import { UserResponse } from '../../application/response/user-response'
 import { UserSignupUseCase } from '../../application/usecases/user-signup.usecase'
-import { UserPresenter } from '../presenters/user.presenter'
-import { UserMapper } from '../../application/mapper/user-response.mapper'
+import { UserRequest } from '../request/user.request'
 
 @Controller('users')
 export class UserSingnupController {
@@ -20,9 +19,9 @@ export class UserSingnupController {
   @HttpCode(HttpStatus.CREATED)
   @Post()
   async handle(
-    @Body() request: UserRequest.UserSignup,
+    @Body() request: UserRequest.Signup,
   ): Promise<UserResponse.User> {
-    const presente = await this.userSingupUseCase.execute(request)
-    return UserMapper.toPresente(presente)
+    const response = await this.userSingupUseCase.execute(request)
+    return UserMapper.toPresente(response)
   }
 }

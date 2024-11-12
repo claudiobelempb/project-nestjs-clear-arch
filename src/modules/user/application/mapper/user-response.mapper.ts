@@ -7,7 +7,7 @@ export class UserMapper {
     return entity.toJSON()
   }
 
-  static toPresente(entity: UserResponse.User): UserResponse.User {
-    return new UserPresenter(entity)
+  static toPresente(response: UserResponse.User): UserPresenter {
+    return new UserPresenter(response)
   }
 }
