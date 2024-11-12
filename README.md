@@ -37,3 +37,10 @@ npx dotenv-cli -e .env.development -- npx prisma migrate dev --schema ./src/shar
 npx dotenv-cli -e .env.development -- npx prisma migrate test --schema ./src/shared/infra/database/prisma/schema.prisma
 
 npx dotenv-cli -e .env.development -- npx prisma migrate deploy --schema ./src/shared/infra/database/prisma/schema.prisma
+
+
+### JWT
+
+```
+npm i @nestjs/jwt
+```
