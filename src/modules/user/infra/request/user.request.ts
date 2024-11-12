@@ -1,12 +1,26 @@
-import { SearchParams } from '@/shared/domain/repositories/utils/search-params'
-import { IsEmail, IsNotEmpty, IsString } from 'class-validator'
+import { IsEmail, IsNotEmpty, IsOptional, IsString } from 'class-validator'
 
 export namespace UserRequest {
   export class User {
+    @IsString()
+    @IsNotEmpty()
     id: string
+
+    @IsString()
+    @IsNotEmpty()
     firstName: string
+
+    @IsString()
+    @IsNotEmpty()
     lastName: string
+
+    @IsString()
+    @IsNotEmpty()
+    @IsEmail()
     email: string
+
+    @IsString()
+    @IsNotEmpty()
     password: string
   }
 
@@ -63,10 +77,19 @@ export namespace UserRequest {
   }
 
   export class Pagination {
+    @IsOptional()
     items: User[]
+
+    @IsOptional()
     total?: number
+
+    @IsOptional()
     currentPage?: number
+
+    @IsOptional()
     lastPage?: number
+
+    @IsOptional()
     perPage?: number
   }
 }
