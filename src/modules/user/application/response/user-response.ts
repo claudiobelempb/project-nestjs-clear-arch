@@ -40,9 +40,9 @@ export namespace UserResponse {
 
   export class Pagination {
     items: User[]
-    total?: number
-    currentPage?: number
-    lastPage?: number
-    perPage?: number
+    total: number
+    currentPage: number
+    lastPage: number
+    perPage: number
   }
 }

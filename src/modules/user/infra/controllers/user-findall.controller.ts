@@ -6,8 +6,9 @@ import {
   Inject,
   Query,
 } from '@nestjs/common'
-import { UserResponse } from '../../application/response/user-response'
+import { UserMapper } from '../../application/mapper/user-response.mapper'
 import { UserFindAllUseCase } from '../../application/usecases/user-findall.usecase'
+import { UserCollectionPresenter } from '../presenters/user.presenter'
 import { UserRequest } from '../request/user.request'
 
 @Controller('users')
@@ -19,7 +20,8 @@ export class UserFindAllController {
   @Get()
   async handle(
     @Query() request: UserRequest.Pagination,
-  ): Promise<UserResponse.Pagination> {
-    return await this.userFindAllUseCase.execute(request)
+  ): Promise<UserCollectionPresenter> {
+    const response = await this.userFindAllUseCase.execute(request)
+    return UserMapper.toPaginationPresente(response)
   }
 }

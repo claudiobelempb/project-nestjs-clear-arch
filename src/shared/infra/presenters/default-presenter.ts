@@ -1,6 +1,6 @@
 import { Exclude, Expose, Transform } from 'class-transformer'
 
-export namespace DefautPresenter {
+export namespace DefaultPresenter {
   export type PaginationProps = {
     currentPage: number
     perPage: number
@@ -38,6 +38,6 @@ export namespace DefautPresenter {
       return this.pagination
     }
 
-    abstract get data(): T
+    abstract get data(): T[]
   }
 }

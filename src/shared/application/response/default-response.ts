@@ -3,10 +3,10 @@ export namespace DefaultResponse {
 
   export type PaginationResponse<Item = any> = {
     items: Item[]
-    total?: number
-    currentPage?: number
-    lastPage?: number
-    perPage?: number
+    total: number
+    currentPage: number
+    lastPage: number
+    perPage: number
   }
 
   export type SearchResponse<Filter = string> = {
