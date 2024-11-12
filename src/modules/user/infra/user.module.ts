@@ -21,12 +21,13 @@ import { UserUpdateActiveController } from './controllers/user-update-active.con
 import { UserUpdateController } from './controllers/user-update.constroller'
 import { UserDeleteController } from './controllers/user-delete.controller'
 import { AuthModule } from '@/modules/auth/infra/auth.module'
+import { UserSigninController } from './controllers/user-signin.controller'
 
 @Module({
   imports: [AuthModule],
   controllers: [
     UserSingnupController,
-    UserSingnupController,
+    UserSigninController,
     UserFindAllController,
     UserFindByIdController,
     UserUpdateController,
