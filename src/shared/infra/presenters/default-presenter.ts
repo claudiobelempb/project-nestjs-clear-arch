@@ -1,4 +1,4 @@
-import { Transform } from 'class-transformer'
+import { Exclude, Expose, Transform } from 'class-transformer'
 
 export namespace DefautPresenter {
   export type PaginationProps = {
@@ -24,5 +24,20 @@ export namespace DefautPresenter {
       this.lastPage = props.lastPage
       this.total = props.total
     }
+  }
+
+  export abstract class Collection<T> {
+    @Exclude()
+    protected pagination: Pagination
+    constructor(props: Pagination) {
+      this.pagination = new Pagination(props)
+    }
+
+    @Expose({ name: 'meta' })
+    get meta() {
+      return this.pagination
+    }
+
+    abstract get data(): T
   }
 }
