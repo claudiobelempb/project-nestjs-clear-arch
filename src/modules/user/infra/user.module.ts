@@ -20,9 +20,10 @@ import { UserUpdatePasswordController } from './controllers/user-update-password
 import { UserUpdateActiveController } from './controllers/user-update-active.controller'
 import { UserUpdateController } from './controllers/user-update.constroller'
 import { UserDeleteController } from './controllers/user-delete.controller'
+import { AuthModule } from '@/modules/auth/infra/auth.module'
 
 @Module({
-  imports: [],
+  imports: [AuthModule],
   controllers: [
     UserSingnupController,
     UserSingnupController,
