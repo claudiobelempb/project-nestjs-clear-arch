@@ -10,7 +10,10 @@ import { UserMapper } from '../../application/mapper/user-response.mapper'
 import { UserResponse } from '../../application/response/user-response'
 import { UserSigninUseCase } from '../../application/usecases/user-signin.usecase'
 import { UserRequest } from '../request/user.request'
-import { AuthService } from '@/modules/auth/infra/auth.service'
+import {
+  AuthService,
+  GenarateJwtProps,
+} from '@/modules/auth/infra/auth.service'
 
 @Controller('users')
 export class UserSigninController {
@@ -22,10 +25,8 @@ export class UserSigninController {
 
   @HttpCode(HttpStatus.OK)
   @Post('login')
-  async handle(
-    @Body() request: UserRequest.Signin,
-  ): Promise<UserResponse.User> {
+  async handle(@Body() request: UserRequest.Signin): Promise<GenarateJwtProps> {
     const response = await this.userSigninUseCase.execute(request)
-    return UserMapper.toPresente(response)
+    return this.authService.generateJwt(response.id)
   }
 }

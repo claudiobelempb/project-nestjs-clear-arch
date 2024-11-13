@@ -6,10 +6,12 @@ import {
   Inject,
   Param,
   Patch,
+  UseGuards,
 } from '@nestjs/common'
 import { UserUpdatePasswordUseCase } from '../../application/usecases/user-update-password.usecase'
 import { UserRequest } from '../request/user.request'
-
+import { AuthGuard } from '@/modules/auth/infra/auth.guard'
+@UseGuards(AuthGuard)
 @Controller('users')
 export class UserUpdatePasswordController {
   @Inject(UserUpdatePasswordUseCase)

@@ -1,9 +1,10 @@
-import { Body, Controller, Inject, Param, Put } from '@nestjs/common'
+import { Body, Controller, Inject, Param, Put, UseGuards } from '@nestjs/common'
 import { UserMapper } from '../../application/mapper/user-response.mapper'
 import { UserUpdateUseCase } from '../../application/usecases/user-update.usecase'
 import { UserPresenter } from '../presenters/user.presenter'
 import { UserRequest } from '../request/user.request'
-
+import { AuthGuard } from '@/modules/auth/infra/auth.guard'
+@UseGuards(AuthGuard)
 @Controller('users')
 export class UserUpdateController {
   @Inject(UserUpdateUseCase)

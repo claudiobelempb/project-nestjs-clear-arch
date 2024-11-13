@@ -2,7 +2,7 @@ import { EnvConfigService } from '@/shared/infra/env-config/env-config.service'
 import { Injectable } from '@nestjs/common'
 import { JwtService } from '@nestjs/jwt'
 
-type GenarateJwtProps = {
+export type GenarateJwtProps = {
   accessToken: string
 }
 @Injectable()
@@ -14,6 +14,7 @@ export class AuthService {
 
   async generateJwt(userId: string): Promise<GenarateJwtProps> {
     const accessToken = await this.jwtService.signAsync({ id: userId }, {})
+    // console.log(accessToken)
     return { accessToken }
   }
 

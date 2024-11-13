@@ -14,7 +14,9 @@ export class WrapperDataInterceptor implements NestInterceptor {
   ): Observable<any> | Promise<Observable<any>> {
     return next.handle().pipe(
       map(body => {
-        return !body || 'meta' in body ? body : { data: body }
+        return !body || 'accessToken' in body || 'meta' in body
+          ? body
+          : { data: body }
       }),
     )
   }

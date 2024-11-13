@@ -5,9 +5,11 @@ import {
   HttpStatus,
   Inject,
   Param,
+  UseGuards,
 } from '@nestjs/common'
 import { UserDeleteUseCase } from '../../application/usecases/user-delete.usecase'
-
+import { AuthGuard } from '@/modules/auth/infra/auth.guard'
+@UseGuards(AuthGuard)
 @Controller('users')
 export class UserDeleteController {
   @Inject(UserDeleteUseCase)
