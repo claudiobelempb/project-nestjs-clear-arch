@@ -1,7 +1,4 @@
-import {
-  UserEntiry,
-  UserProps,
-} from '@/modules/user/domain/entities/user.entity'
+import { UserEntiry, UserProps } from '@/user/domain/entities/user.entity'
 import { validate as uuidValidate } from 'uuid'
 import { AppEntity } from '../default-entity'
 

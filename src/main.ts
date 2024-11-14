@@ -1,5 +1,5 @@
 import { NestFactory, Reflector } from '@nestjs/core'
-import { AppModule } from './modules/app/infra/app.module'
+import { AppModule } from './app/infra/app.module'
 import { ClassSerializerInterceptor } from '@nestjs/common'
 import { applyGloboConfig } from './global-config.ts'
 
