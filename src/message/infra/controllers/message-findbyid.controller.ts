@@ -2,7 +2,7 @@ import { MessageFindByIdService } from '@/message/application/services/message-f
 import { Controller, Get, HttpCode, HttpStatus, Param } from '@nestjs/common'
 
 @Controller('messages')
-export class MessageFindAllController {
+export class MessageFindByIdController {
   constructor(
     private readonly menssageFindByIdService: MessageFindByIdService,
   ) {}
