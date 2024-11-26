@@ -5,6 +5,6 @@ export class UserUpdateActiveUseCase {
   async execute(id: string, active: boolean): Promise<void> {
     const entity = await this.userRepository.findById(id)
     entity.updateActive(active)
-    await this.userRepository.update(entity)
+    await this.userRepository.update(id, entity)
   }
 }

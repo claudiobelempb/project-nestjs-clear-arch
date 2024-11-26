@@ -1,18 +1,23 @@
-import { ConfictError } from '@/shared/domain/errors/conflict-error'
 import { NotFoundError } from '@/shared/domain/errors/not-found.error'
-import { PrismaService } from '@/shared/infra/database/prisma.service'
 import { UserEntiry } from '@/user/domain/entities/user.entity'
 import { UserRepository } from '@/user/domain/repositories/user-repository'
-import { UserModelMapper } from '../model/user-model.mapper'
 
-export class UserPrismaRepository implements UserRepository.Repository {
+import { ConfictError } from '@/shared/domain/errors/conflict-error'
+import { InjectRepository } from '@nestjs/typeorm'
+import { Repository } from 'typeorm'
+import { UserModelMapper } from '../../prisma/model/user-model.mapper'
+
+export class UserTypeOrmRepository implements UserRepository.Repository {
   sortableFields: string[] = ['firstName', 'createdAt']
 
-  constructor(private readonly prismaService: PrismaService) {}
+  constructor(
+    @InjectRepository(UserEntiry)
+    private readonly userRepository: Repository<UserEntiry>,
+  ) {}
 
   async findByEmail(email: string): Promise<UserEntiry> {
     try {
-      const entity = await this.prismaService.user.findUnique({
+      const entity = await this.userRepository.findOne({
         where: { email },
       })
       return UserModelMapper.toEntity(entity)
@@ -22,7 +27,7 @@ export class UserPrismaRepository implements UserRepository.Repository {
   }
 
   async emailExists(email: string): Promise<void> {
-    const entity = await this.prismaService.user.findUnique({
+    const entity = await this.userRepository.findOne({
       where: { email },
     })
 
@@ -38,24 +43,18 @@ export class UserPrismaRepository implements UserRepository.Repository {
     const orderByFilter = sortable ? props.sort : 'createdAt'
     const orderByDir = sortable ? props.sortDir : 'desc'
 
-    const count = await this.prismaService.user.count({
+    const count = await this.userRepository.count({
       ...(props.filter && {
         where: {
-          firstName: {
-            contains: props.filter,
-            mode: 'insensitive',
-          },
+          firstName: props.filter,
         },
       }),
     })
 
-    const models = await this.prismaService.user.findMany({
+    const models = await this.userRepository.find({
       ...(props.filter && {
         where: {
-          firstName: {
-            contains: props.filter,
-            mode: 'insensitive',
-          },
+          firstName: props.filter,
         },
         orderBy: {
           [orderByFilter]: orderByDir,
@@ -78,9 +77,7 @@ export class UserPrismaRepository implements UserRepository.Repository {
   }
 
   async insert(entity: UserEntiry): Promise<void> {
-    await this.prismaService.user.create({
-      data: entity.toJSON(),
-    })
+    this.userRepository.create(entity.toJSON())
   }
 
   async findById(id: string): Promise<UserEntiry> {
@@ -88,32 +85,23 @@ export class UserPrismaRepository implements UserRepository.Repository {
   }
 
   async findAll(): Promise<UserEntiry[]> {
-    const models = await this.prismaService.user.findMany()
+    const models = await this.userRepository.find()
     return models.map(model => UserModelMapper.toEntity(model))
   }
 
   async update(id: string, entity: UserEntiry): Promise<void> {
-    await this._get(id)
-    await this.prismaService.user.update({
-      data: entity.toJSON(),
-      where: {
-        id,
-      },
-    })
+    await this._get(entity._id)
+    await this.userRepository.update(id, entity.toJSON())
   }
 
   async delete(id: string): Promise<void> {
     await this._get(id)
-    await this.prismaService.user.delete({
-      where: {
-        id,
-      },
-    })
+    await this.userRepository.delete(id)
   }
 
   protected async _get(id: string): Promise<UserEntiry> {
     try {
-      const entity = await this.prismaService.user.findUnique({
+      const entity = await this.userRepository.findOne({
         where: { id },
       })
       return UserModelMapper.toEntity(entity)

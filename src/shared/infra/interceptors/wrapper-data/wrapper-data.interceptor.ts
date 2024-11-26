@@ -16,7 +16,7 @@ export class WrapperDataInterceptor implements NestInterceptor {
       map(body => {
         return !body || 'accessToken' in body || 'meta' in body
           ? body
-          : { data: body }
+          : { content: body }
       }),
     )
   }

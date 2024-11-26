@@ -1,4 +1,3 @@
-import { TypeOrmModuleAsyncOptions } from '@nestjs/typeorm'
 import { DataSource, DataSourceOptions } from 'typeorm'
 
 export const dataSourceOption: DataSourceOptions = {

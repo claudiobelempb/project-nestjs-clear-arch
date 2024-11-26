@@ -31,7 +31,7 @@ export class UserUpdatePasswordUseCase {
 
     const hashPassword = await this.hashProvider.generateHash(password)
     entity.updatePassword(hashPassword)
-    await this.userRepository.update(entity)
+    await this.userRepository.update(id, entity)
     UserMapper.toResponse(entity)
   }
 }

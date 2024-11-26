@@ -24,5 +24,18 @@ model User {
   createdAt DateTime  @default(now()) @map("created_at") @db.Timestamp
   updatedAt DateTime? @updatedAt @map("updated_at") @db.Timestamp
 
-  @@map("users")
+  @@map("user")
+}
+
+model Message {
+  id        String    @id @db.Uuid
+  text      String    @db.VarChar(255)
+  from      String    @db.VarChar(100)
+  to        String    @db.VarChar(32)
+  isRead    Boolean   @default(true) @db.Boolean
+  isActive  Boolean   @default(true) @db.Boolean
+  createdAt DateTime  @default(now()) @map("created_at") @db.Timestamp
+  updatedAt DateTime? @updatedAt @map("updated_at") @db.Timestamp
+
+  @@map("message")
 }

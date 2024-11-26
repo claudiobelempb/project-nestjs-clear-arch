@@ -1,19 +1,28 @@
 import { MessageEntity } from '@/message/domain/entities/message.entity'
+import { MessageRepository } from '@/message/domain/repositories/message-repository'
 import { MessageRequest } from '@/message/infra/request/message-request'
-import { Injectable } from '@nestjs/common'
+import { BadRequestError } from '@/shared/application/errors/bad-request.error'
+import { MessageMapper } from '../mapper/message.mapper'
+import { MessageResponse } from '../response/message-response'
+import { Injectable, Scope } from '@nestjs/common'
 import { InjectRepository } from '@nestjs/typeorm'
-import { Repository } from 'typeorm'
 
-@Injectable()
+@Injectable({ scope: Scope.DEFAULT })
 export class MessageCreateService {
   constructor(
     @InjectRepository(MessageEntity)
-    private readonly messageRepository: Repository<MessageEntity>,
+    private readonly messageRepository: MessageRepository.Repository,
   ) {}
 
-  async execute(request: MessageRequest.Message): Promise<MessageEntity> {
-    console.log(request)
-    const entity = this.messageRepository.create(request)
-    return this.messageRepository.save(entity)
+  async execute(
+    request: MessageRequest.Message,
+  ): Promise<MessageResponse.Message> {
+    const { text, from, to } = request
+    if (!text || !from || !to) {
+      throw new BadRequestError('Input data not provided')
+    }
+    const entity = new MessageEntity(Object.assign(request))
+    await this.messageRepository.insert(entity)
+    return MessageMapper.toResponse(entity)
   }
 }

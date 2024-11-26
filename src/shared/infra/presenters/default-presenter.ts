@@ -38,6 +38,6 @@ export namespace DefaultPresenter {
       return this.pagination
     }
 
-    abstract get data(): T[]
+    abstract get content(): T[]
   }
 }

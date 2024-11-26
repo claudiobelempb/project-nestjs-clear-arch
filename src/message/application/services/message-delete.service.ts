@@ -1,21 +1,15 @@
-import { MessageEntity } from '@/message/domain/entities/message.entity'
-import { Injectable, NotFoundException } from '@nestjs/common'
-import { InjectRepository } from '@nestjs/typeorm'
-import { Repository } from 'typeorm'
+import { MessageRepository } from '@/message/domain/repositories/message-repository'
+import { NotFoundException } from '@nestjs/common'
 
-@Injectable()
 export class MessageDeleteService {
   constructor(
-    @InjectRepository(MessageEntity)
-    private readonly messageRepository: Repository<MessageEntity>,
+    private readonly messageRepository: MessageRepository.Repository,
   ) {}
 
   async execute(id: string): Promise<void> {
     try {
-      const entity = await this.messageRepository.findOne({
-        where: { id },
-      })
-      await this.messageRepository.remove(entity)
+      const entity = await this.messageRepository.findById(id)
+      await this.messageRepository.delete(entity.id)
     } catch (error) {
       throw new NotFoundException('Entity not found...')
     }

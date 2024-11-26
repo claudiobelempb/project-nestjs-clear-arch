@@ -1,9 +1,19 @@
 import { MessageDeleteService } from '@/message/application/services/message-delete.service'
-import { Controller, Delete, HttpCode, HttpStatus, Param } from '@nestjs/common'
+import {
+  Controller,
+  Delete,
+  HttpCode,
+  HttpStatus,
+  Inject,
+  Param,
+} from '@nestjs/common'
 
 @Controller('messages')
 export class MessageDeleteController {
-  constructor(private readonly menssageDeleteService: MessageDeleteService) {}
+  constructor(
+    @Inject(MessageDeleteService)
+    private readonly menssageDeleteService: MessageDeleteService,
+  ) {}
 
   @HttpCode(HttpStatus.NO_CONTENT)
   @Delete(':id')

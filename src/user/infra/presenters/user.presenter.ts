@@ -1,6 +1,5 @@
 import { Transform } from 'class-transformer'
 import { UserResponse } from '../../application/response/user-response'
-import { UserEntiry } from '../../domain/entities/user.entity'
 import { DefaultPresenter } from '@/shared/infra/presenters/default-presenter'
 
 export class UserPresenter {
@@ -26,11 +25,11 @@ export class UserPresenter {
 }
 
 export class UserCollectionPresenter extends DefaultPresenter.Collection<UserPresenter> {
-  data: UserPresenter[]
+  content: UserPresenter[]
 
   constructor(response: UserResponse.Pagination) {
     const { items, ...props } = response
     super(props)
-    this.data = items.map(item => new UserPresenter(item))
+    this.content = items.map(item => new UserPresenter(item))
   }
 }

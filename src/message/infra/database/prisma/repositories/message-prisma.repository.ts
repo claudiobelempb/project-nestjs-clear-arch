@@ -1,0 +1,102 @@
+import { MessageMapper } from '@/message/application/mapper/message.mapper'
+import { MessageEntity } from '@/message/domain/entities/message.entity'
+import { MessageRepository } from '@/message/domain/repositories/message-repository'
+import { NotFoundError } from '@/shared/domain/errors/not-found.error'
+import { PrismaService } from '@/shared/infra/database/prisma.service'
+
+export class MessagePrismaRepository implements MessageRepository.Repository {
+  sortableFields: string[] = ['from', 'createdAt']
+
+  constructor(private readonly prismaService: PrismaService) {}
+
+  async search(
+    props: MessageRepository.SearchParams,
+  ): Promise<MessageRepository.SearchResult> {
+    const sortable = this.sortableFields?.includes(props.sort)
+    const orderByFilter = sortable ? props.sort : 'createdAt'
+    const orderByDir = sortable ? props.sortDir : 'desc'
+
+    const count = await this.prismaService.message.count({
+      ...(props.filter && {
+        where: {
+          from: {
+            contains: props.filter,
+            mode: 'insensitive',
+          },
+        },
+      }),
+    })
+
+    const models = await this.prismaService.message.findMany({
+      ...(props.filter && {
+        where: {
+          from: {
+            contains: props.filter,
+            mode: 'insensitive',
+          },
+        },
+        orderBy: {
+          [orderByFilter]: orderByDir,
+        },
+        skip:
+          props.page && props.page > 0 ? (props.page - 1) * props.perPage : 1,
+        take: props.perPage && props.perPage > 0 ? props.perPage : 15,
+      }),
+    })
+
+    return new MessageRepository.SearchResult({
+      items: models.map(model => MessageMapper.toEntity(model)),
+      total: count,
+      currentPage: props.page,
+      perPage: props.perPage,
+      sort: orderByFilter,
+      sortDir: orderByDir,
+      filter: props.filter,
+    })
+  }
+
+  async insert(entity: MessageEntity): Promise<void> {
+    await this.prismaService.message.create({
+      data: entity.toJSON(),
+    })
+  }
+
+  async findById(id: string): Promise<MessageEntity> {
+    return this._get(id)
+  }
+
+  async findAll(): Promise<MessageEntity[]> {
+    const models = await this.prismaService.message.findMany()
+    return models.map(model => MessageMapper.toEntity(model))
+  }
+
+  async update(id: string, entity: MessageEntity): Promise<void> {
+    await this._get(id)
+    await this.prismaService.message.update({
+      data: entity.toJSON(),
+      where: {
+        id,
+      },
+    })
+  }
+
+  async delete(id: string): Promise<void> {
+    await this._get(id)
+    await this.prismaService.message.delete({
+      where: {
+        id,
+      },
+    })
+  }
+
+  protected async _get(id: string): Promise<MessageEntity> {
+    try {
+      const entity = await this.prismaService.message.findUnique({
+        where: { id },
+      })
+      return MessageMapper.toEntity(entity)
+    } catch (error) {
+      throw new NotFoundError(`MessageModel not found unind ID ${id}`)
+    }
+  }
+}

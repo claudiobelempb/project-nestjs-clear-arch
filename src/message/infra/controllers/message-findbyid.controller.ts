@@ -1,9 +1,17 @@
 import { MessageFindByIdService } from '@/message/application/services/message-findbyid.service'
-import { Controller, Get, HttpCode, HttpStatus, Param } from '@nestjs/common'
+import {
+  Controller,
+  Get,
+  HttpCode,
+  HttpStatus,
+  Inject,
+  Param,
+} from '@nestjs/common'
 
 @Controller('messages')
 export class MessageFindByIdController {
   constructor(
+    @Inject(MessageFindByIdService)
     private readonly menssageFindByIdService: MessageFindByIdService,
   ) {}
 
